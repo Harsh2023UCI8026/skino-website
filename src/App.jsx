@@ -1315,30 +1315,226 @@ export default function App() {
         )}
 
         {/* RFQ PORTAL VIEW */}
-        {currentTab === 'rfq' && (
-          <section className="py-24 bg-white">
-            <div className="max-w-3xl mx-auto px-6">
-              <h1 className="text-3xl font-light tracking-tight text-[#1A1A1D] text-center mb-8">Request For <span className="font-bold">OEM Quotation (RFQ)</span></h1>
-              {submittedRfq ? (
-                <div className="p-8 bg-[#F5F1EB] border-2 border-[#FF6B00] text-center"><p className="text-xs text-[#4B5563] font-bold">RFQ Successfully Transmitted to SGI Engineering Desk.</p></div>
-              ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSubmittedRfq(true); }} className="space-y-6 bg-[#F9FAFB] p-8 border border-gray-200">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-[#1A1A1D] mb-2">Company Legal Name *</label>
-                      <input required type="text" className="w-full bg-white border border-gray-200 px-4 py-3 text-xs focus:outline-none focus:border-[#FF6B00]" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-[#1A1A1D] mb-2">Corporate Email *</label>
-                      <input required type="email" className="w-full bg-white border border-gray-200 px-4 py-3 text-xs focus:outline-none focus:border-[#FF6B00]" />
-                    </div>
-                  </div>
-                  <button type="submit" className="w-full bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-xs font-bold tracking-widest uppercase py-4 transition-colors">Submit Parametric Data Profile</button>
-                </form>
-              )}
+{currentTab === 'rfq' && (
+  <section className="py-24 bg-[#F9FAFB]">
+    <div className="max-w-5xl mx-auto px-6 lg:px-12">
+
+      {/* Heading Block */}
+      <div className="text-center mb-14">
+        <p className="text-xs font-bold tracking-[0.25em] uppercase text-[#FF6B00] mb-4">
+          Enterprise RFQ Portal
+        </p>
+
+        <h1 className="text-4xl md:text-5xl font-light tracking-tight text-[#1A1A1D] leading-tight">
+          Request For <span className="font-bold">OEM Quotation</span>
+        </h1>
+
+        <p className="mt-6 text-lg text-[#4B5563] max-w-3xl mx-auto leading-relaxed">
+          Submit your engineering and production requirements for precision aluminium casting solutions. 
+          Our technical team will review your specifications and connect with you for feasibility, tooling, 
+          manufacturing timelines, and commercial evaluation.
+        </p>
+      </div>
+
+      {/* Success Message */}
+      {submittedRfq ? (
+        <div className="bg-[#FFFDF9] border-2 border-[#FF6B00] p-10 text-center shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-[#FF6B00]/10 flex items-center justify-center mx-auto mb-6">
+            <span className="text-2xl text-[#FF6B00]">✓</span>
+          </div>
+
+          <h2 className="text-2xl font-bold text-[#1A1A1D] mb-3">
+            RFQ Successfully Submitted
+          </h2>
+
+          <p className="text-[#4B5563] leading-relaxed max-w-2xl mx-auto">
+            Your request has been transmitted to the SGI Engineering & Commercial Desk.
+            Our technical specialists will review your requirement and respond shortly.
+          </p>
+        </div>
+      ) : (
+
+        /* FORM */
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSubmittedRfq(true);
+          }}
+          className="bg-white border border-gray-200 p-8 md:p-12 shadow-sm space-y-10"
+        >
+
+          {/* Company Information */}
+          <div>
+            <h2 className="text-xl font-bold text-[#1A1A1D] mb-6">
+              Company Information
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Company Legal Name *
+                </label>
+                <input
+                  required
+                  type="text"
+                  placeholder="Enter company name"
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Contact Person *
+                </label>
+                <input
+                  required
+                  type="text"
+                  placeholder="Full name"
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Corporate Email *
+                </label>
+                <input
+                  required
+                  type="email"
+                  placeholder="example@company.com"
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Contact Number *
+                </label>
+                <input
+                  required
+                  type="tel"
+                  placeholder="+91 XXXXX XXXXX"
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
             </div>
-          </section>
-        )}
+          </div>
+
+          {/* Project Details */}
+          <div>
+            <h2 className="text-xl font-bold text-[#1A1A1D] mb-6">
+              Project Specifications
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Industry Sector *
+                </label>
+
+                <select className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]">
+                  <option>Power Transmission</option>
+                  <option>Electric Mobility</option>
+                  <option>Railways</option>
+                  <option>Renewable Energy</option>
+                  <option>Aerospace & Defence</option>
+                  <option>Heavy Engineering</option>
+                  <option>Marine Applications</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Casting Process *
+                </label>
+
+                <select className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]">
+                  <option>Gravity Die Casting</option>
+                  <option>Low Pressure Die Casting</option>
+                  <option>Sand Casting</option>
+                  <option>Precision Machining</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Estimated Annual Volume
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="e.g. 50,000 Units"
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Preferred Alloy Grade
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="LM6 / ADC12 / A356 etc."
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* Technical Inputs */}
+          <div>
+            <h2 className="text-xl font-bold text-[#1A1A1D] mb-6">
+              Technical Documentation
+            </h2>
+
+            <div className="space-y-6">
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Upload CAD Drawings / Technical Files
+                </label>
+
+                <input
+                  type="file"
+                  className="w-full bg-white border border-dashed border-gray-300 px-4 py-5 text-sm cursor-pointer focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">
+                  Technical Notes / Requirement Details
+                </label>
+
+                <textarea
+                  rows={6}
+                  placeholder="Describe tolerances, pressure requirements, leak testing requirements, machining details, certifications, packaging specifications, or any special process instructions."
+                  className="w-full bg-white border border-gray-300 px-4 py-4 text-sm resize-none focus:outline-none focus:border-[#FF6B00]"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="pt-4">
+            <button
+              type="submit"
+              className="w-full bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-xs font-bold tracking-[0.25em] uppercase py-5 transition-all duration-300"
+            >
+              Submit Engineering RFQ
+            </button>
+          </div>
+
+        </form>
+      )}
+    </div>
+  </section>
+)}
 
         {/* CONTACT VIEW */}
         {currentTab === 'contact' && (
