@@ -1154,7 +1154,7 @@ export default function App() {
       }`}>
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
           <div className="flex items-center cursor-pointer" onClick={() => setCurrentTab('home')}>
-            <div className="h-24 w-80 flex items-center justify-start">
+            <div className="h-24 w-70 flex items-center justify-start">
               <img src="/skino_logo.png" alt="SUPERKINO EQUIPMENTS" className="h-full w-auto object-contain max-h-32" />
             </div>
           </div>
