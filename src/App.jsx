@@ -1109,284 +1109,10 @@
 
 
 
-// import React, { useState, useEffect } from 'react';
-
-// // ============================================================================
-// // DATA MATRIX LAYER (Site Global Content)
-// // ============================================================================
-// const CAPABILITIES = [
-//   { title: 'Tool Design & Manufacturing', short: 'Advanced CAD/CAM engineering and in-house precision mold construction.' },
-//   { title: 'Sand Casting', short: 'High-density sand molding optimized for heavy-duty structural enclosures.' },
-//   { title: 'Gravity Die Casting (GDC)', short: 'Permanent mold casting delivering superior mechanical properties.' },
-//   { title: 'Low Pressure Die Casting (LPDC)', short: 'Controlled pressure pouring system for critical weight-bearing components.' }
-// ];
-
-// const INDUSTRIES = [
-//   { title: 'Power Transmission & Distribution', description: 'High-voltage switchgear components and gas-insulated substations (GIS) enclosures.' },
-//   { title: 'Electric Mobility (EV)', description: 'Lightweight structural battery housings and liquid-cooled inverter trays.' },
-//   { title: 'Refineries, Pumps & Valves', description: 'Explosion-proof actuator housings and heavy-duty impellers.' },
-//   { title: 'Railway & Locomotive', description: 'High-stress bogie brake links and air-compressor crankcases.' },
-//   { title: 'Healthcare Equipment', description: 'Precision articulation arms for surgical monitors and diagnostic frames.' },
-//   { title: 'Marine Jet Propulsion', description: 'High-shroud hydro-jet impellers and dynamic steering nozzles.' }
-// ];
-
-// export default function App() {
-//   const [currentTab, setCurrentTab] = useState('home');
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const [submittedRfq, setSubmittedRfq] = useState(false);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setIsScrolled(window.scrollY > 20);
-//     };
-//     window.addEventListener('scroll', handleScroll);
-//     return () => window.removeEventListener('scroll', handleScroll);
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen flex flex-col justify-between bg-[#F9FAFB]">
-      
-//       {/* ========================================== */}
-//       {/* SYSTEM HEADER (NAVBAR)                     */}
-//       {/* ========================================== */}
-//       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-//         isScrolled ? 'bg-white/95 shadow-xs border-gray-200' : 'bg-[#F5F1EB]/90 backdrop-blur-xs border-transparent'
-//       }`}>
-//         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-//           <div className="flex items-center cursor-pointer" onClick={() => setCurrentTab('home')}>
-//             <div className="h-20 w-64 flex items-center justify-start">
-//               <img src="/skino_logo.png" alt="SUPERKINO EQUIPMENTS" className="h-full w-auto object-contain max-h-16" />
-//             </div>
-//           </div>
-//           <div className="hidden xl:flex items-center gap-8">
-//             {['home', 'about', 'capabilities', 'industries', 'quality', 'rfq', 'contact'].map((tab) => (
-//               <button
-//                 key={tab}
-//                 onClick={() => setCurrentTab(tab)}
-//                 className={`text-xs font-bold tracking-widest uppercase transition-all relative py-2 cursor-pointer ${
-//                   currentTab === tab ? 'text-[#FF6B00] border-b-2 border-[#FF6B00]' : 'text-[#4B5563] hover:text-[#1A1A1D]'
-//                 }`}
-//               >
-//                 {tab === 'rfq' ? 'RFQ Portal' : tab === 'quality' ? 'Quality & Trust' : tab}
-//               </button>
-//             ))}
-//           </div>
-//           <div className="hidden lg:block">
-//             <button onClick={() => setCurrentTab('rfq')} className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-xs font-bold tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer">
-//               Request Quote
-//             </button>
-//           </div>
-//         </div>
-//       </nav>
-
-//       {/* ========================================== */}
-//       {/* ROUTING APPLICATION BODY VIEWS             */}
-//       {/* ========================================== */}
-//       <main className="flex-grow pt-24">
-        
-//         {/* HOMEPAGE VIEW ORCHESTRATOR */}
-//         {currentTab === 'home' && (
-//           <div>
-//             {/* HERO MODULE */}
-//             <section className="relative min-h-screen flex items-center justify-start bg-[#F5F1EB] overflow-hidden">
-//               <div className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none">
-//                 <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80" alt="Foundry" className="w-full h-full object-cover" />
-//               </div>
-//               <div className="absolute inset-0 z-1 pointer-events-none bg-gradient-to-b from-white/40 via-transparent to-[#F5F1EB]" />
-//               <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16">
-//                 <div className="lg:col-span-8 space-y-8">
-//                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-gray-200 text-xs font-bold tracking-widest uppercase text-[#FF6B00]">
-//                     <span className="w-2 h-2 rounded-full bg-[#FF6B00]"></span> Enterprise OEM Production Partner
-//                   </div>
-//                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#1A1A1D] leading-[1.1]">
-//                     Precision <span className="font-bold text-[#FF6B00]">Aluminium</span> <br /> <span className="font-bold">Castings For Global OEMs</span>
-//                   </h1>
-//                   <p className="text-base md:text-lg text-[#4B5563] font-light max-w-2xl leading-relaxed">
-//                     Built on Quality. Cast for Performance. We deliver technology-driven casting excellence and reliability into every critical industrial component.
-//                   </p>
-//                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
-//                     <button onClick={() => setCurrentTab('contact')} className="bg-[#FF6B00] hover:bg-[#1A1A1D] text-white text-xs font-bold tracking-widest uppercase px-8 py-4 transition-colors duration-300 cursor-pointer">
-//                       Discuss Your Requirement
-//                     </button>
-//                     <button onClick={() => setCurrentTab('capabilities')} className="bg-white hover:bg-gray-50 text-[#1A1A1D] border border-gray-300 text-xs font-bold tracking-widest uppercase px-8 py-4 transition-all duration-300 cursor-pointer">
-//                       View Capabilities
-//                     </button>
-//                   </div>
-//                 </div>
-//                 <div className="lg:col-span-4 grid grid-cols-2 gap-4 mt-8 lg:mt-0">
-//                   {[
-//                     { metric: '60+', label: 'Years of Engineering Legacy' },
-//                     { metric: '100%', label: 'Differential Leak Tested' },
-//                     { metric: 'Global', label: 'OEM Delivery Network' },
-//                     { metric: 'Micron', label: 'CNC Tooling Precision' }
-//                   ].map((stat, i) => (
-//                     <div key={i} className="bg-[#FFFDF9] p-6 border border-gray-200 shadow-xs hover:border-[#FF6B00] transition-all">
-//                       <div className="text-2xl font-bold text-[#1A1A1D] border-b-2 border-[#FF6B00] pb-1 inline-block mb-2">{stat.metric}</div>
-//                       <p className="text-[11px] text-[#4B5563] font-bold uppercase tracking-wider leading-snug">{stat.label}</p>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             </section>
-
-//             {/* HIGH-DENSITY EDITORIAL OVERVIEW */}
-//             <section className="bg-white py-24 border-b border-gray-200">
-//               <div className="max-w-7xl mx-auto px-6 lg:px-12">
-//                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-//                   <div className="lg:col-span-4">
-//                     <span className="text-xs font-bold tracking-widest text-[#FF6B00] uppercase block mb-3">Corporate Positioning</span>
-//                     <h2 className="text-3xl font-light tracking-tight text-[#1A1A1D]">Converting Complex Engineering Into <span className="font-bold">Flawless Metal Components</span></h2>
-//                   </div>
-//                   <div className="lg:col-span-8">
-//                     <p className="text-xl text-[#4B5563] font-light leading-relaxed">
-//                       Superkino converts complex engineering requirements into precision aluminium castings. Combining advanced casting technologies, process expertise, and high-precision machining, we support global OEMs with reliable components for demanding industrial applications worldwide.
-//                     </p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </section>
-//           </div>
-//         )}
-
-//         {/* ABOUT TAB VIEW */}
-//         {currentTab === 'about' && (
-//           <section className="py-24 bg-white animate-fade-in">
-//             <div className="max-w-4xl mx-auto px-6">
-//               <span className="text-xs font-bold tracking-widest text-[#FF6B00] uppercase block mb-3">Our Legacy & Core Values</span>
-//               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-8">From Cinema Engineering to <span className="font-bold">Precision Global Metallurgy</span></h1>
-//               <div className="text-[#4B5563] font-light text-base space-y-6 leading-relaxed">
-//                 <p>Established in 1965, our foundations hold deep historical links with advanced optical and structural mechanics. The root word <strong>“Kino”</strong> represents cinema in German—reflecting our early precision engineering roots in manufacturing specialized cinematographic projection machinery.</p>
-//                 <p>As global manufacturing paradigms shifted, we leveraged this obsession with exact structural sizing, transitioning cleanly into premium, heavy-industry aluminium casting solutions. Today, Superkino Equipments Pvt. Ltd. stands as a multi-facility manufacturing center supplying component configurations to elite international OEMs.</p>
-//               </div>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* CAPABILITIES TAB VIEW */}
-//         {currentTab === 'capabilities' && (
-//           <section className="py-24 bg-[#F9FAFB]">
-//             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-//               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Advanced Metallurgical Processes & <span className="font-bold">Precision Multi-Axis Finishing</span></h1>
-//               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//                 {CAPABILITIES.map((cap, idx) => (
-//                   <div key={idx} className="bg-white p-8 border border-gray-200 shadow-2xs hover:shadow-sm transition-all duration-300">
-//                     <h3 className="text-xl font-bold text-[#1A1A1D] mb-3">{cap.title}</h3>
-//                     <p className="text-xs text-[#4B5563] leading-relaxed font-light">{cap.short}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* INDUSTRIES TAB VIEW */}
-//         {currentTab === 'industries' && (
-//           <section className="py-24 bg-white">
-//             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-//               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Engineered For <span className="font-bold">Critical Industrial Environments</span></h1>
-//               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//                 {INDUSTRIES.map((ind, idx) => (
-//                   <div key={idx} className="bg-[#F9FAFB] border border-gray-200 p-6 hover:bg-[#FFFDF9] transition-all duration-300">
-//                     <h3 className="text-base font-bold text-[#1A1A1D] mb-3">{ind.title}</h3>
-//                     <p className="text-xs text-[#4B5563] leading-relaxed font-light">{ind.description}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* QUALITY TAB VIEW */}
-//         {currentTab === 'quality' && (
-//           <section className="py-24 bg-white">
-//             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-//               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Systematic Quality Validation & <span className="font-bold">Testing Controls</span></h1>
-//               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//                 {['Early Risk Prevention', 'APQP Planning Engine', 'In-House Testing Labs', 'Differential Leak Verifiers'].map((item, idx) => (
-//                   <div key={idx} className="p-6 bg-[#F5F1EB] border border-gray-200">
-//                     <div className="text-xs font-bold text-[#FF6B00] mb-2">// PILLAR 0{idx+1}</div>
-//                     <h3 className="text-sm font-bold uppercase text-[#1A1A1D] mb-2">{item}</h3>
-//                     <p className="text-xs text-[#4B5563] font-light leading-relaxed">Validated zero-defect frameworks matching enterprise global OEM parameters.</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* RFQ PORTAL VIEW */}
-//         {currentTab === 'rfq' && (
-//           <section className="py-24 bg-white">
-//             <div className="max-w-3xl mx-auto px-6">
-//               <h1 className="text-3xl font-light tracking-tight text-[#1A1A1D] text-center mb-8">Request For <span className="font-bold">OEM Quotation (RFQ)</span></h1>
-//               {submittedRfq ? (
-//                 <div className="p-8 bg-[#F5F1EB] border-2 border-[#FF6B00] text-center"><p className="text-xs text-[#4B5563] font-bold">RFQ Successfully Transmitted to SGI Engineering Desk.</p></div>
-//               ) : (
-//                 <form onSubmit={(e) => { e.preventDefault(); setSubmittedRfq(true); }} className="space-y-6 bg-[#F9FAFB] p-8 border border-gray-200">
-//                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                     <div>
-//                       <label className="block text-xs font-bold uppercase text-[#1A1A1D] mb-2">Company Legal Name *</label>
-//                       <input required type="text" className="w-full bg-white border border-gray-200 px-4 py-3 text-xs focus:outline-none focus:border-[#FF6B00]" />
-//                     </div>
-//                     <div>
-//                       <label className="block text-xs font-bold uppercase text-[#1A1A1D] mb-2">Corporate Email *</label>
-//                       <input required type="email" className="w-full bg-white border border-gray-200 px-4 py-3 text-xs focus:outline-none focus:border-[#FF6B00]" />
-//                     </div>
-//                   </div>
-//                   <button type="submit" className="w-full bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-xs font-bold tracking-widest uppercase py-4 transition-colors">Submit Parametric Data Profile</button>
-//                 </form>
-//               )}
-//             </div>
-//           </section>
-//         )}
-
-//         {/* CONTACT VIEW */}
-//         {currentTab === 'contact' && (
-//           <section className="py-24 bg-[#F9FAFB]">
-//             <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
-//               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D]">Let's Connect Our <span className="font-bold">Engineering Desks</span></h1>
-//               <p className="text-sm text-[#4B5563]">Email: <span className="text-[#1A1A1D] font-bold">engineering@superkino.com</span> | Plant Hub: Gurugram, India</p>
-//             </div>
-//           </section>
-//         )}
-
-//       </main>
-
-//       {/* ============================================================================ */}
-//       {/* SYSTEM FOOTER                                                                */}
-//       {/* ============================================================================ */}
-//       <footer className="bg-white border-t border-gray-200 py-12 text-xs text-[#4B5563] text-center">
-//         <div className="max-w-7xl mx-auto px-6">
-//           <p className="font-bold text-[#1A1A1D] tracking-wider uppercase mb-2">SUPERKINO EQUIPMENTS PVT. LTD.</p>
-//           <p className="font-light text-gray-400">&copy; {new Date().getFullYear()} All corporate rights reserved globally.</p>
-//         </div>
-//       </footer>
-
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 
 // ============================================================================
-// SYSTEM DATA ENGINE (B2B Structural Content Mapping)
+// DATA MATRIX LAYER (Site Global Content)
 // ============================================================================
 const CAPABILITIES = [
   { title: 'Tool Design & Manufacturing', short: 'Advanced CAD/CAM engineering and in-house precision mold construction.' },
@@ -1411,57 +1137,42 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#F9FAFB]" suppressHydrationWarning>
+    <div className="min-h-screen flex flex-col justify-between bg-[#F9FAFB]">
       
       {/* ========================================== */}
-      {/* 1. HIGH-SPACED SPACIOUS INDUSTRIAL NAVBAR  */}
+      {/* SYSTEM HEADER (NAVBAR)                     */}
       {/* ========================================== */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 w-full nav-transition border-b select-none ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-xs border-gray-200/80 h-22' 
-          : 'bg-[#F5F1EB]/90 backdrop-blur-xs border-gray-200/40 h-26'
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+        isScrolled ? 'bg-white/95 shadow-xs border-gray-200' : 'bg-[#F5F1EB]/90 backdrop-blur-xs border-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto h-full px-6 lg:px-8 flex items-center justify-between gap-x-8">
-          
-          {/* SGI Logo Container with Strict Multi-line Intersection Guard */}
-          <div className="flex items-center flex-shrink-0 cursor-pointer group py-2 pr-8" onClick={() => setCurrentTab('home')}>
-            <div className="relative h-18 w-56 sm:w-64 flex items-center justify-start overflow-visible">
-              <img 
-                src="/logo.png" 
-                alt="SUPERKINO EQUIPMENTS" 
-                className="h-full w-auto object-contain object-left scale-125 origin-left transition-all duration-300 group-hover:scale-[1.28]" 
-              />
+        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+          <div className="flex items-center cursor-pointer" onClick={() => setCurrentTab('home')}>
+            <div className="h-20 w-64 flex items-center justify-start">
+              <img src="/skino_logo.png" alt="SUPERKINO EQUIPMENTS" className="h-full w-auto object-contain max-h-16" />
             </div>
           </div>
-
-          {/* Preventing Text-Wrapping Framework */}
-          <div className="hidden xl:flex items-center justify-center gap-x-6 xl:gap-x-8 2xl:gap-x-10 h-full ml-auto">
+          <div className="hidden xl:flex items-center gap-8">
             {['home', 'about', 'capabilities', 'industries', 'quality', 'rfq', 'contact'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setCurrentTab(tab)}
-                className={`text-[11px] font-medium uppercase tracking-[0.16em] whitespace-nowrap transition-all duration-300 relative py-2 cursor-pointer ${
-                  currentTab === tab ? 'text-[#FF6B00]' : 'text-[#4B5563] hover:text-[#1A1A1D]'
+                className={`text-xs font-bold tracking-widest uppercase transition-all relative py-2 cursor-pointer ${
+                  currentTab === tab ? 'text-[#FF6B00] border-b-2 border-[#FF6B00]' : 'text-[#4B5563] hover:text-[#1A1A1D]'
                 }`}
               >
-                {tab === 'rfq' ? 'RFQ Portal' : tab === 'quality' ? 'Quality & Trust' : tab === 'about' ? 'About Us' : tab}
-                {currentTab === tab && (
-                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#FF6B00]" />
-                )}
+                {tab === 'rfq' ? 'RFQ Portal' : tab === 'quality' ? 'Quality & Trust' : tab}
               </button>
             ))}
           </div>
-
-          {/* Balanced B2B Header CTA */}
-          <div className="hidden lg:flex items-center flex-shrink-0 ml-4">
-            <button onClick={() => setCurrentTab('rfq')} className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-[11px] font-bold tracking-[0.15em] uppercase px-6 py-3.5 transition-colors cursor-pointer rounded-none">
+          <div className="hidden lg:block">
+            <button onClick={() => setCurrentTab('rfq')} className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-xs font-bold tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer">
               Request Quote
             </button>
           </div>
@@ -1469,34 +1180,26 @@ export default function App() {
       </nav>
 
       {/* ========================================== */}
-      {/* 2. DYNAMIC APPLICATION CONTENT HUB        */}
+      {/* ROUTING APPLICATION BODY VIEWS             */}
       {/* ========================================== */}
       <main className="flex-grow pt-24">
         
-        {/* HOMEPAGE CORE BLOCK */}
+        {/* HOMEPAGE VIEW ORCHESTRATOR */}
         {currentTab === 'home' && (
           <div>
-            
-            {/* PRISTINE AIRY LIGHT HERO SECTION */}
-            {/* Ab saare dark vignettes, edge fades aur cinematic layers complete vanished hain */}
+            {/* HERO MODULE */}
             <section className="relative min-h-screen flex items-center justify-start bg-[#F5F1EB] overflow-hidden">
-              
-              {/* Subtle background placeholder graphic layer with absolute NO dark multiplier overrides */}
-              <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
-                <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80" alt="Foundry Infrastructure" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none">
+                <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80" alt="Foundry" className="w-full h-full object-cover" />
               </div>
-              
-              {/* Soft aesthetic light top-to-bottom white blending wash */}
-              <div className="absolute inset-0 z-1 pointer-events-none bg-gradient-to-b from-white/30 via-transparent to-[#F5F1EB]" />
-
+              <div className="absolute inset-0 z-1 pointer-events-none bg-gradient-to-b from-white/40 via-transparent to-[#F5F1EB]" />
               <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16">
                 <div className="lg:col-span-8 space-y-8">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-gray-200 text-xs font-bold tracking-widest uppercase text-[#FF6B00] shadow-2xs">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-gray-200 text-xs font-bold tracking-widest uppercase text-[#FF6B00]">
                     <span className="w-2 h-2 rounded-full bg-[#FF6B00]"></span> Enterprise OEM Production Partner
                   </div>
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#1A1A1D] leading-[1.1]">
-                    Precision <span className="font-bold text-[#FF6B00]">Aluminium</span> <br /> 
-                    <span className="font-bold">Castings For Global OEMs</span>
+                    Precision <span className="font-bold text-[#FF6B00]">Aluminium</span> <br /> <span className="font-bold">Castings For Global OEMs</span>
                   </h1>
                   <p className="text-base md:text-lg text-[#4B5563] font-light max-w-2xl leading-relaxed">
                     Built on Quality. Cast for Performance. We deliver technology-driven casting excellence and reliability into every critical industrial component.
@@ -1510,8 +1213,6 @@ export default function App() {
                     </button>
                   </div>
                 </div>
-
-                {/* Pristine Light Component Metric Cards */}
                 <div className="lg:col-span-4 grid grid-cols-2 gap-4 mt-8 lg:mt-0">
                   {[
                     { metric: '60+', label: 'Years of Engineering Legacy' },
@@ -1519,7 +1220,7 @@ export default function App() {
                     { metric: 'Global', label: 'OEM Delivery Network' },
                     { metric: 'Micron', label: 'CNC Tooling Precision' }
                   ].map((stat, i) => (
-                    <div key={i} className="bg-[#FFFDF9] p-6 border border-gray-200 shadow-2xs hover:border-[#FF6B00] transition-all duration-300">
+                    <div key={i} className="bg-[#FFFDF9] p-6 border border-gray-200 shadow-xs hover:border-[#FF6B00] transition-all">
                       <div className="text-2xl font-bold text-[#1A1A1D] border-b-2 border-[#FF6B00] pb-1 inline-block mb-2">{stat.metric}</div>
                       <p className="text-[11px] text-[#4B5563] font-bold uppercase tracking-wider leading-snug">{stat.label}</p>
                     </div>
@@ -1528,13 +1229,13 @@ export default function App() {
               </div>
             </section>
 
-            {/* CORPORATE OVERVIEW BLOCK WITH CLEAN LOGO REVISIONS */}
+            {/* HIGH-DENSITY EDITORIAL OVERVIEW */}
             <section className="bg-white py-24 border-b border-gray-200">
               <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                   <div className="lg:col-span-4">
                     <span className="text-xs font-bold tracking-widest text-[#FF6B00] uppercase block mb-3">Corporate Positioning</span>
-                    <h2 className="text-3xl font-light tracking-tight text-[#1A1A1D] leading-tight">Converting Complex Engineering Into <span className="font-bold">Flawless Metal Components</span></h2>
+                    <h2 className="text-3xl font-light tracking-tight text-[#1A1A1D]">Converting Complex Engineering Into <span className="font-bold">Flawless Metal Components</span></h2>
                   </div>
                   <div className="lg:col-span-8">
                     <p className="text-xl text-[#4B5563] font-light leading-relaxed">
@@ -1542,61 +1243,33 @@ export default function App() {
                     </p>
                   </div>
                 </div>
-
-                {/* High-End Industrial Vector Logo Matrix */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  
-                  {/* LOGO CARD 1 */}
-                  <div className="p-6 bg-[#FFFDF9] border border-gray-200 shadow-2xs hover:border-[#FF6B00] transition-all duration-300">
-                    <div className="text-[#FF6B00] mb-5">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3" /></svg>
-                    </div>
-                    <h4 className="text-sm font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">Advanced Foundry</h4>
-                    <p className="text-xs text-[#4B5563] font-light leading-relaxed">Integrating multi-platform production formats including sand casting, gravity die casting, and low-pressure processing.</p>
-                  </div>
-
-                  {/* LOGO CARD 2 */}
-                  <div className="p-6 bg-[#FFFDF9] border border-gray-200 shadow-2xs hover:border-[#FF6B00] transition-all duration-300">
-                    <div className="text-[#FF6B00] mb-5">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.25 0h8.25m0 0V4.5m0 15V12" /><circle cx="12" cy="12" r="2" fill="currentColor" /></svg>
-                    </div>
-                    <h4 className="text-sm font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">Precision Machining</h4>
-                    <p className="text-xs text-[#4B5563] font-light leading-relaxed">In-house multi-axis CNC centers guarantee critical geometric dimensioning and tolerancing (GD&T) profiles down to exact sub-millimeter scales.</p>
-                  </div>
-
-                  {/* LOGO CARD 3 */}
-                  <div className="p-6 bg-[#FFFDF9] border border-gray-200 shadow-2xs hover:border-[#FF6B00] transition-all duration-300">
-                    <div className="text-[#FF6B00] mb-5">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
-                    </div>
-                    <h4 className="text-sm font-bold uppercase tracking-wider text-[#1A1A1D] mb-2">Zero-Defect Philosophy</h4>
-                    <p className="text-xs text-[#4B5563] font-light leading-relaxed">Systematic risk-mitigation using upfront casting simulation modeling, detailed APQP workflows, and fully automated leak verification testing.</p>
-                  </div>
-
-                </div>
               </div>
             </section>
           </div>
         )}
 
-        {/* OTHER TAB SECTIONS CONTENT */}
+        {/* ABOUT TAB VIEW */}
         {currentTab === 'about' && (
-          <section className="py-24 bg-white">
+          <section className="py-24 bg-white animate-fade-in">
             <div className="max-w-4xl mx-auto px-6">
               <span className="text-xs font-bold tracking-widest text-[#FF6B00] uppercase block mb-3">Our Legacy & Core Values</span>
               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-8">From Cinema Engineering to <span className="font-bold">Precision Global Metallurgy</span></h1>
-              <p className="text-base text-[#4B5563] font-light leading-relaxed">Established in 1965, our foundations hold deep historical links with advanced optical and structural mechanics. The root word <strong>“Kino”</strong> represents cinema in German—reflecting our early precision engineering roots in manufacturing specialized cinematographic machinery.</p>
+              <div className="text-[#4B5563] font-light text-base space-y-6 leading-relaxed">
+                <p>Established in 1965, our foundations hold deep historical links with advanced optical and structural mechanics. The root word <strong>“Kino”</strong> represents cinema in German—reflecting our early precision engineering roots in manufacturing specialized cinematographic projection machinery.</p>
+                <p>As global manufacturing paradigms shifted, we leveraged this obsession with exact structural sizing, transitioning cleanly into premium, heavy-industry aluminium casting solutions. Today, Superkino Equipments Pvt. Ltd. stands as a multi-facility manufacturing center supplying component configurations to elite international OEMs.</p>
+              </div>
             </div>
           </section>
         )}
 
+        {/* CAPABILITIES TAB VIEW */}
         {currentTab === 'capabilities' && (
           <section className="py-24 bg-[#F9FAFB]">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Advanced Metallurgical Processes & <span className="font-bold">Precision Multi-Axis Finishing</span></h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {CAPABILITIES.map((cap, idx) => (
-                  <div key={idx} className="bg-white p-8 border border-gray-200 shadow-2xs">
+                  <div key={idx} className="bg-white p-8 border border-gray-200 shadow-2xs hover:shadow-sm transition-all duration-300">
                     <h3 className="text-xl font-bold text-[#1A1A1D] mb-3">{cap.title}</h3>
                     <p className="text-xs text-[#4B5563] leading-relaxed font-light">{cap.short}</p>
                   </div>
@@ -1606,13 +1279,14 @@ export default function App() {
           </section>
         )}
 
+        {/* INDUSTRIES TAB VIEW */}
         {currentTab === 'industries' && (
           <section className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Engineered For <span className="font-bold">Critical Industrial Environments</span></h1>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {INDUSTRIES.map((ind, idx) => (
-                  <div key={idx} className="bg-[#F9FAFB] border border-gray-200 p-6 hover:bg-[#FFFDF9] transition-all">
+                  <div key={idx} className="bg-[#F9FAFB] border border-gray-200 p-6 hover:bg-[#FFFDF9] transition-all duration-300">
                     <h3 className="text-base font-bold text-[#1A1A1D] mb-3">{ind.title}</h3>
                     <p className="text-xs text-[#4B5563] leading-relaxed font-light">{ind.description}</p>
                   </div>
@@ -1622,16 +1296,17 @@ export default function App() {
           </section>
         )}
 
+        {/* QUALITY TAB VIEW */}
         {currentTab === 'quality' && (
           <section className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
               <h1 className="text-4xl font-light tracking-tight text-[#1A1A1D] mb-12">Systematic Quality Validation & <span className="font-bold">Testing Controls</span></h1>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {['Early Risk Prevention', 'APQP Planning Engine', 'In-House Testing Labs', 'Differential Leak Verifiers'].map((item, idx) => (
                   <div key={idx} className="p-6 bg-[#F5F1EB] border border-gray-200">
                     <div className="text-xs font-bold text-[#FF6B00] mb-2">// PILLAR 0{idx+1}</div>
                     <h3 className="text-sm font-bold uppercase text-[#1A1A1D] mb-2">{item}</h3>
-                    <p className="text-xs text-[#4B5563] font-light">Validated zero-defect frameworks matching enterprise global OEM parameters.</p>
+                    <p className="text-xs text-[#4B5563] font-light leading-relaxed">Validated zero-defect frameworks matching enterprise global OEM parameters.</p>
                   </div>
                 ))}
               </div>
@@ -1639,6 +1314,7 @@ export default function App() {
           </section>
         )}
 
+        {/* RFQ PORTAL VIEW */}
         {currentTab === 'rfq' && (
           <section className="py-24 bg-white">
             <div className="max-w-3xl mx-auto px-6">
@@ -1664,6 +1340,7 @@ export default function App() {
           </section>
         )}
 
+        {/* CONTACT VIEW */}
         {currentTab === 'contact' && (
           <section className="py-24 bg-[#F9FAFB]">
             <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
@@ -1675,7 +1352,9 @@ export default function App() {
 
       </main>
 
-      {/* SYSTEM FOOTER */}
+      {/* ============================================================================ */}
+      {/* SYSTEM FOOTER                                                                */}
+      {/* ============================================================================ */}
       <footer className="bg-white border-t border-gray-200 py-12 text-xs text-[#4B5563] text-center">
         <div className="max-w-7xl mx-auto px-6">
           <p className="font-bold text-[#1A1A1D] tracking-wider uppercase mb-2">SUPERKINO EQUIPMENTS PVT. LTD.</p>
@@ -1686,5 +1365,22 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
