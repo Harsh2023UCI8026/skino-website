@@ -8,7 +8,7 @@
 // } from 'lucide-react'
 // import { motion, AnimatePresence } from 'framer-motion'
 
-// function App() {
+// function App() { 
 //   const isDark = false
 //   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 //   const [activeCapability, setActiveCapability] = useState(null)
