@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import "tailwindcss";
 
 /* REMOVED DARK MODE VARIANT */
@@ -147,9 +147,9 @@ html {
       transparent 60%
     ) border-box;
 
-  -webkit-mask:
+  /* -webkit-mask:
     linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
+    linear-gradient(#fff 0 0); */
 
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
@@ -171,4 +171,42 @@ html {
 
 .orange-glow-box {
   box-shadow: 0 0 30px rgba(255, 107, 0, 0.10);
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import "tailwindcss";
+
+/* SCANDINAVIAN LUXURY LIGHT THEME RESET */
+html, body {
+  background-color: #F9FAFB !important;
+  color: #1A1A1D !important;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+section {
+  background-color: #F9FAFB !important;
+  color: #1A1A1D !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1A1A1D !important;
+}
+
+p, span, li, label, div {
+  font-family: 'Roboto', sans-serif;
 }
