@@ -1,19 +1,24 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
+/* REMOVED DARK MODE VARIANT */
+/* @custom-variant dark (&:where(.dark, .dark *)); */
 
 @theme {
   --color-brand-orange: #FF6B00;
   --color-brand-orange-hover: #E05E00;
-  --color-brand-charcoal: #090A0C;
-  --color-brand-dark: #121316;
-  --color-brand-card: #18191E;
-  --color-brand-card-light: #202229;
-  --color-brand-steel: #2E313D;
+
+  /* LIGHT THEME COLORS */
+  --color-brand-charcoal: #1A1A1D;
+  --color-brand-dark: #F9FAFB;
+  --color-brand-card: #FFFDF9;
+  --color-brand-card-light: #FFFFFF;
+  --color-brand-steel: #D6D3D1;
+
   --color-brand-offwhite: #F5F5F7;
-  --color-brand-muted: #8E9AA8;
+  --color-brand-muted: #5C5C62;
+
+  /* MAIN LIGHT PALETTE */
   --color-brand-light-bg: #F5F1EB;
   --color-brand-light-card: #FFFDF9;
   --color-brand-light-border: #E5E0D8;
@@ -45,11 +50,15 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Premium Blueprint/Grid Overlay */
+/* =========================================================
+   PREMIUM LIGHT GRID OVERLAY
+========================================================= */
+
 .blueprint-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+
   background-size: 40px 40px;
 }
 
@@ -57,35 +66,58 @@ html {
   background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+
   background-size: 40px 40px;
 }
 
-/* Glassmorphism Styles */
+/* =========================================================
+   LIGHT GLASSMORPHISM
+========================================================= */
+
 .glass-header {
-  background: rgba(9, 10, 12, 0.7);
+  background: rgba(245, 241, 235, 0.85);
+
   backdrop-filter: blur(16px) saturate(120%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .glass-header-light {
-  background: rgba(245, 241, 235, 0.85);
+  background: rgba(245, 241, 235, 0.88);
+
   backdrop-filter: blur(16px) saturate(120%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .glass-card {
-  background: rgba(24, 25, 30, 0.5);
+  background: rgba(255, 255, 255, 0.72);
+
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .glass-card-light {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.78);
+
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   border: 1px solid rgba(0, 0, 0, 0.06);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* Scrollbar styling */
+/* =========================================================
+   SCROLLBAR STYLING
+========================================================= */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -97,7 +129,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-brand-steel);
+  background: #CFC7BC;
   border-radius: 4px;
 }
 
@@ -105,309 +137,13 @@ html {
   background: var(--color-brand-orange);
 }
 
-/* Technical Border Glow */
-.glow-border {
-  position: relative;
-  overflow: hidden;
-}
-
-.glow-border::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid transparent;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 85, 0, 0.4), transparent 60%) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.glow-border:hover::after {
-  opacity: 1;
-}
-
-/* Custom glow effect */
-.orange-glow-text {
-  text-shadow: 0 0 10px rgba(255, 85, 0, 0.3);
-}
-
-.orange-glow-box {
-  box-shadow: 0 0 30px rgba(255, 85, 0, 0.15);
-} */
-
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import "tailwindcss";
-
 /* =========================================================
-   PREMIUM LIGHT INDUSTRIAL DESIGN SYSTEM
-   SKINO / SUPERKINO
-========================================================= */
-
-@theme {
-  /* =========================================================
-     COLOR PALETTE
-  ========================================================= */
-
-  --color-brand-background: #F9FAFB;
-  --color-brand-surface: #F5F1EB;
-  --color-brand-card: #FFFDF9;
-
-  --color-brand-text: #1A1A1D;
-  --color-brand-text-secondary: #4B5563;
-  --color-brand-muted: #6B7280;
-
-  --color-brand-orange: #FF6B00;
-  --color-brand-orange-hover: #E05E00;
-
-  --color-brand-border: #E5E7EB;
-  --color-brand-border-soft: #ECE7DF;
-
-  --color-brand-beige: #F3ECE3;
-  --color-brand-soft-orange: #FFF4EC;
-
-  /* =========================================================
-     TYPOGRAPHY
-  ========================================================= */
-
-  --font-display: 'Roboto', sans-serif;
-  --font-sans: 'Roboto', sans-serif;
-  --font-mono: 'Roboto', monospace;
-
-  /* =========================================================
-     PREMIUM TRANSITIONS
-  ========================================================= */
-
-  --transition-premium: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* =========================================================
-     SHADOWS
-  ========================================================= */
-
-  --shadow-soft:
-    0 4px 20px rgba(15, 23, 42, 0.04);
-
-  --shadow-card:
-    0 10px 40px rgba(15, 23, 42, 0.06);
-
-  --shadow-hover:
-    0 20px 60px rgba(15, 23, 42, 0.08);
-}
-
-/* =========================================================
-   GLOBAL RESET
-========================================================= */
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-:root {
-  color-scheme: light;
-}
-
-body {
-  font-family: var(--font-sans);
-  background-color: var(--color-brand-background);
-  color: var(--color-brand-text);
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
-}
-
-/* =========================================================
-   TYPOGRAPHY SYSTEM
-========================================================= */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-  color: var(--color-brand-text);
-  letter-spacing: -0.03em;
-  margin: 0;
-  font-weight: 700;
-}
-
-p {
-  color: var(--color-brand-text-secondary);
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font-family: var(--font-sans);
-}
-
-/* =========================================================
-   PREMIUM LIGHT GRID SYSTEM
-========================================================= */
-
-.blueprint-grid-light {
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.03) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.03) 1px,
-      transparent 1px
-    );
-
-  background-size: 40px 40px;
-}
-
-/* =========================================================
-   PREMIUM LIGHT HEADER
-========================================================= */
-
-.glass-header-light {
-  background: rgba(249, 250, 251, 0.82);
-
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-
-  transition: var(--transition-premium);
-}
-
-/* =========================================================
-   LIGHT GLASS CARDS
-========================================================= */
-
-.glass-card-light {
-  background: rgba(255, 255, 255, 0.72);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border: 1px solid rgba(0, 0, 0, 0.06);
-
-  box-shadow: var(--shadow-card);
-
-  transition: var(--transition-premium);
-}
-
-.glass-card-light:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-/* =========================================================
-   PREMIUM INDUSTRIAL SECTIONS
-========================================================= */
-
-.premium-section {
-  background:
-    linear-gradient(
-      180deg,
-      #F9FAFB 0%,
-      #F5F1EB 100%
-    );
-}
-
-.soft-surface {
-  background-color: var(--color-brand-card);
-
-  border: 1px solid var(--color-brand-border-soft);
-
-  box-shadow: var(--shadow-soft);
-}
-
-/* =========================================================
-   PREMIUM BUTTON SYSTEM
-========================================================= */
-
-.btn-primary {
-  background-color: var(--color-brand-orange);
-  color: white;
-
-  border-radius: 12px;
-
-  padding:
-    14px 28px;
-
-  font-weight: 500;
-
-  transition: var(--transition-premium);
-
-  box-shadow:
-    0 10px 30px rgba(255, 107, 0, 0.15);
-}
-
-.btn-primary:hover {
-  background-color: var(--color-brand-orange-hover);
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 18px 40px rgba(255, 107, 0, 0.22);
-}
-
-.btn-secondary {
-  background-color: white;
-
-  color: var(--color-brand-text);
-
-  border:
-    1px solid var(--color-brand-border);
-
-  border-radius: 12px;
-
-  padding:
-    14px 28px;
-
-  font-weight: 500;
-
-  transition: var(--transition-premium);
-}
-
-.btn-secondary:hover {
-  border-color: var(--color-brand-orange);
-
-  color: var(--color-brand-orange);
-
-  transform: translateY(-2px);
-}
-
-/* =========================================================
-   LIGHT INDUSTRIAL GLOW
+   LIGHT PREMIUM BORDER GLOW
 ========================================================= */
 
 .glow-border {
   position: relative;
   overflow: hidden;
-  border-radius: inherit;
 }
 
 .glow-border::after {
@@ -416,14 +152,13 @@ select {
   position: absolute;
   inset: 0;
 
-  border-radius: inherit;
-
   border: 1px solid transparent;
+  border-radius: inherit;
 
   background:
     linear-gradient(
       135deg,
-      rgba(255, 107, 0, 0.25),
+      rgba(255, 107, 0, 0.22),
       transparent 60%
     ) border-box;
 
@@ -431,13 +166,12 @@ select {
     linear-gradient(#fff 0 0) padding-box,
     linear-gradient(#fff 0 0);
 
-  -webkit-mask-composite: xor;
-
+  -webkit-mask-composite: destination-out;
   mask-composite: exclude;
 
-  opacity: 0;
-
   pointer-events: none;
+
+  opacity: 0;
 
   transition: opacity 0.5s ease;
 }
@@ -447,104 +181,13 @@ select {
 }
 
 /* =========================================================
-   LIGHT ORANGE ACCENTS
+   LIGHT INDUSTRIAL GLOW EFFECTS
 ========================================================= */
 
 .orange-glow-text {
-  text-shadow:
-    0 0 12px rgba(255, 107, 0, 0.16);
+  text-shadow: 0 0 10px rgba(255, 107, 0, 0.16);
 }
 
 .orange-glow-box {
-  box-shadow:
-    0 0 40px rgba(255, 107, 0, 0.10);
-}
-
-/* =========================================================
-   PREMIUM SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-brand-background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-orange);
-}
-
-/* =========================================================
-   INDUSTRIAL GRADIENTS
-========================================================= */
-
-.gradient-industrial {
-  background:
-    linear-gradient(
-      135deg,
-      #FFFDF9 0%,
-      #F5F1EB 50%,
-      #FFF4EC 100%
-    );
-}
-
-.gradient-soft {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,1) 0%,
-      rgba(245,241,235,1) 100%
-    );
-}
-
-/* =========================================================
-   IMAGE STYLING
-========================================================= */
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* =========================================================
-   SECTION SPACING
-========================================================= */
-
-.section-padding {
-  padding-top: 120px;
-  padding-bottom: 120px;
-}
-
-@media (max-width: 768px) {
-  .section-padding {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-}
-
-/* =========================================================
-   SELECTION COLOR
-========================================================= */
-
-::selection {
-  background: rgba(255, 107, 0, 0.18);
-  color: var(--color-brand-text);
-}
-
-/* =========================================================
-   REMOVE DARK MODE VISUALS COMPLETELY
-========================================================= */
-
-.dark,
-.dark * {
-  background-color: unset !important;
-  color: unset !important;
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.10);
 }
