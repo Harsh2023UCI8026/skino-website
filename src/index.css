@@ -8,7 +8,7 @@
   --color-brand-orange: #FF6B00;
   --color-brand-orange-hover: #E05E00;
 
-  /* LIGHT THEME COLORS */
+  /* LIGHT INDUSTRIAL PALETTE */
   --color-brand-charcoal: #1A1A1D;
   --color-brand-dark: #F9FAFB;
   --color-brand-card: #FFFDF9;
@@ -18,7 +18,6 @@
   --color-brand-offwhite: #F5F5F7;
   --color-brand-muted: #5C5C62;
 
-  /* MAIN LIGHT PALETTE */
   --color-brand-light-bg: #F5F1EB;
   --color-brand-light-card: #FFFDF9;
   --color-brand-light-border: #E5E0D8;
@@ -50,10 +49,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* =========================================================
-   PREMIUM LIGHT GRID OVERLAY
-========================================================= */
-
+/* Premium Blueprint/Grid Overlay */
 .blueprint-grid {
   background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
@@ -70,10 +66,7 @@ html {
   background-size: 40px 40px;
 }
 
-/* =========================================================
-   LIGHT GLASSMORPHISM
-========================================================= */
-
+/* Glassmorphism Styles */
 .glass-header {
   background: rgba(245, 241, 235, 0.85);
 
@@ -89,7 +82,7 @@ html {
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .glass-card {
@@ -114,10 +107,7 @@ html {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* =========================================================
-   SCROLLBAR STYLING
-========================================================= */
-
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -137,10 +127,7 @@ html {
   background: var(--color-brand-orange);
 }
 
-/* =========================================================
-   LIGHT PREMIUM BORDER GLOW
-========================================================= */
-
+/* Technical Border Glow */
 .glow-border {
   position: relative;
   overflow: hidden;
@@ -148,10 +135,8 @@ html {
 
 .glow-border::after {
   content: '';
-
   position: absolute;
   inset: 0;
-
   border: 1px solid transparent;
   border-radius: inherit;
 
@@ -170,7 +155,6 @@ html {
   mask-composite: exclude;
 
   pointer-events: none;
-
   opacity: 0;
 
   transition: opacity 0.5s ease;
@@ -180,10 +164,7 @@ html {
   opacity: 1;
 }
 
-/* =========================================================
-   LIGHT INDUSTRIAL GLOW EFFECTS
-========================================================= */
-
+/* Custom glow effect */
 .orange-glow-text {
   text-shadow: 0 0 10px rgba(255, 107, 0, 0.16);
 }
