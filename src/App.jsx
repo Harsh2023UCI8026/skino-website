@@ -534,11 +534,66 @@ function App() {
               )
             })}
           </div>
+                    {/* ========================================== */}
+          {/* INDUSTRIAL MOTION IMAGE GRID               */}
+          {/* ========================================== */}
+
+          <div className="mt-24">
+            
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <span className="text-xs uppercase font-mono tracking-widest text-[#FF6B00] font-bold">
+                  INDUSTRIAL VISUAL SYSTEM
+                </span>
+
+                <h3 className="text-2xl sm:text-4xl font-light tracking-tight text-[#1A1A1D] mt-3">
+                  Precision Manufacturing Environments
+                </h3>
+              </div>
+
+              <p className="hidden lg:block max-w-sm text-sm text-[#4B5563] font-light leading-relaxed">
+                Hover across industrial process visuals to explore engineered production environments and OEM-grade manufacturing workflows.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+              {[1,2,3,4,5,6].map((img, index) => (
+
+                <div
+                  key={index}
+                  className="industry-hover-card"
+                  style={{
+                    backgroundImage: `url(/${img}.jpeg)`
+                  }}
+                >
+
+                  <div className="industry-overlay">
+
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.25em] text-white/70 font-bold block mb-2">
+                        OEM PRODUCTION SYSTEM
+                      </span>
+
+                      <h3 className="text-2xl font-bold text-white leading-tight">
+                        Industrial Engineering Excellence
+                      </h3>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
 
         </div>
       </section>
 
-      {/* ========================================== */}
+       {/* ========================================== */}
       {/* 5. INTERACTIVE TARGET INDUSTRIES PLATFORM  */}
       {/* ========================================== */}
       <section id="industries" className="py-24 sm:py-32 bg-white border-t border-b border-gray-200">
@@ -636,7 +691,11 @@ function App() {
           </div>
 
         </div>
-      </section>
+      </section> 
+
+
+
+      
 
       {/* ========================================== */}
       {/* 6. SYSTEMATIC QUALITY CERTIFICATION LAB    */}
