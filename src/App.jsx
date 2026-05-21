@@ -282,9 +282,7 @@ function App() {
 
          
 
-          /* {/* ================================================================= */}
-{/* PREMIUM B2B CTA BUTTON (FIXED VISIBILITY OVERRIDE)               */}
-{/* ================================================================= */}
+      
 <div className="hidden lg:flex items-center flex-shrink-0 ml-4">
   <button
     onClick={() => setCurrentTab('rfq')}
@@ -298,7 +296,7 @@ function App() {
   >
     Request Quote
   </button>
-</div> */
+</div>
 
           {/* ================================================================= */}
 {/* ENTERPRISE SOLID LIGHT THEME NAVBAR (FIXED OVERLAPPING BUG)     */}
