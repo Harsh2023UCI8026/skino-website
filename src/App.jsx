@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+'use client';
+import React, { useState, useEffect } from 'react'
 import { 
   Compass, Flame, Layers, Gauge, Cpu, Sun, Moon, 
   Sparkles, Activity, ShieldCheck, UploadCloud, 
@@ -13,6 +14,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeCapability, setActiveCapability] = useState(null)
   const [activeIndustry, setActiveIndustry] = useState(null)
+  const [isScrolled, setIsScrolled] = useState(false)
   
   // RFQ Form States
   const [alloy, setAlloy] = useState('A356')
@@ -27,14 +29,27 @@ function App() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [formErrors, setFormErrors] = useState({})
   
-  // Theme sync
+  // Real-time Event Scroll Listener Sync to Prevent Dynamic Opacity Intersections
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 15) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Strict Global Theme Environment Reset Override
   useEffect(() => {
     const root = window.document.documentElement
     root.classList.remove('dark')
     root.style.colorScheme = 'light'
   }, [])
 
-  // Capability Data
+  // Master Architectural Capability Data Matrix
   const capabilities = [
     {
       id: 'tooling',
@@ -119,7 +134,7 @@ function App() {
     }
   ]
 
-  // Industry Data
+  // Master Global Enterprise Sectors Matrix
   const industries = [
     {
       id: 'power',
@@ -195,7 +210,7 @@ function App() {
     }
   ]
 
-  // Form Validation and Submission
+  // File Validation and Submission Handling Pipelines
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
@@ -240,11 +255,9 @@ function App() {
     if (!validateForm()) return
     
     setIsSubmitting(true)
-    // Simulate API upload
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
-      // Reset form
       setName('')
       setEmail('')
       setCompany('')
@@ -255,79 +268,62 @@ function App() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-brand-charcoal text-brand-offwhite' : 'bg-brand-light-bg text-brand-light-text'}`}>
+    <div className="min-h-screen bg-[#F9FAFB] text-[#1A1A1D] antialiased">
       
-      {/* 1. Header / Navigation */}
-      {/* <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isDark ? 'glass-header' : 'glass-header-light'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between"> */}
-      {/* 1. Header / Navigation - Fixed Overlapping Strata */}
-<header 
-  className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
-    isScrolled 
-      ? 'bg-white shadow-md border-gray-200/80' 
-      : 'bg-[#F5F1EB]'
-  }`}
-  style={{
-    zIndex: 9999,               // Forcefully brings the navbar to the absolute top layer
-    position: 'fixed',
-    isolation: 'isolate'
-  }}
->
+      {/* ================================================================= */}
+      {/* 1. SOLID LAYER FIXED NAVBAR (PREVENTS TEXT INTERSECTIONS AND OVERLAPS) */}
+      {/* ================================================================= */}
+      <header 
+        className={`fixed top-0 left-0 w-full border-b select-none nav-transition ${
+          isScrolled 
+            ? 'bg-white shadow-md border-gray-200 h-22' 
+            : 'bg-[#F5F1EB] border-gray-200/40 h-26'
+        }`}
+        style={{
+          zIndex: 9999, // Overrides any common card or canvas structure
+          position: 'fixed',
+          isolation: 'isolate'
+        }}
+      >
+        <div className="max-w-7xl mx-auto h-full px-6 lg:px-8 flex items-center justify-between gap-x-8 relative z-50">
           
-          {/* Logo Section */}
-          {/* <div className="flex items-center">
-            <img 
-              src="/skino_logo.png" 
-              alt="SKINO Logo" 
-              className="h-22 sm:h-32 w-auto object-contain" 
-            />
-          </div> */}
-          {/* Logo Section */}
-<div className="flex items-center flex-shrink-0 py-2 pr-6">
-  <div className="relative h-20 w-56 sm:w-64 flex items-center justify-start overflow-visible">
-    <img 
-      src="/skino_logo.png" 
-      alt="SKINO Logo" 
-      className="h-full w-auto object-contain object-left scale-125 origin-left transition-transform duration-300" 
-    />
-  </div>
-</div>
+          {/* SGI Large Scale Branding Container Block */}
+          <div className="flex items-center flex-shrink-0 cursor-pointer group py-2 pr-8">
+            <div className="relative h-18 w-56 sm:w-64 flex items-center justify-start overflow-visible">
+              <img 
+                src="/skino_logo.png" 
+                alt="SUPERKINO EQUIPMENTS" 
+                className="h-full w-auto object-contain object-left scale-125 origin-left transition-transform duration-300" 
+              />
+            </div>
+          </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            <a href="#about" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>About Us</a>
-            <a href="#capabilities" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>Capabilities</a>
-            <a href="#industries" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>Industries</a>
-            <a href="#quality" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>Quality</a>
-            <a href="#facilities" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>Facilities</a>
-            <a href="#rfq" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>RFQ Portal</a>
+          {/* Opaque Protected Link Layout Rows - Anti-wrapping active */}
+          <nav className="hidden xl:flex items-center justify-center gap-x-6 xl:gap-x-8 2xl:gap-x-10 h-full ml-auto">
+            <a href="#about" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">About Us</a>
+            <a href="#capabilities" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">Capabilities</a>
+            <a href="#industries" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">Industries</a>
+            <a href="#quality" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">Quality</a>
+            <a href="#facilities" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">Facilities</a>
+            <a href="#rfq" className="text-[11px] font-bold uppercase tracking-[0.16em] whitespace-nowrap text-[#4B5563] hover:text-[#1A1A1D] no-underline transition-colors">RFQ Portal</a>
           </nav>
 
-         
+          {/* High Visibility Pure Solid Contrast Action CTA */}
+          <div className="hidden lg:flex items-center flex-shrink-0 ml-4">
+            <a
+              href="#rfq"
+              className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase px-7 py-3.5 transition-all duration-300 shadow-sm cursor-pointer rounded-none border-none text-center no-underline block"
+              style={{ backgroundColor: '#1A1A1D', color: '#FFFFFF', opacity: 1, visibility: 'visible' }}
+            >
+              Request Quote
+            </a>
+          </div>
 
-      
-<div className="hidden lg:flex items-center flex-shrink-0 ml-4">
-  <button
-    onClick={() => setCurrentTab('rfq')}
-    className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase px-7 py-3.5 transition-colors duration-300 shadow-sm cursor-pointer rounded-none border-none block"
-    style={{ 
-      backgroundColor: '#1A1A1D', 
-      color: '#FFFFFF',
-      opacity: 1,
-      visibility: 'visible'
-    }}
-  >
-    Request Quote
-  </button>
-</div>
-
- 
-
-          {/* Mobile Menu Controls */}
-          <div className="flex sm:hidden items-center space-x-3">
+          {/* Mobile Display Controllers */}
+          <div className="flex xl:hidden items-center">
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              className="p-2 rounded-sm border border-black/10 text-brand-light-text"
+              className="p-2 text-[#1A1A1D] bg-transparent cursor-pointer border-none"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -336,26 +332,26 @@ function App() {
 
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile View Responsive Sheet Grid */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className={`sm:hidden border-t ${isDark ? 'bg-brand-charcoal/95 border-white/5' : 'bg-brand-light-bg border-black/5'}`}
+              className="xl:hidden border-t bg-white border-gray-200"
             >
-              <div className="px-4 py-6 space-y-4 flex flex-col">
-                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">About Us</a>
-                <a href="#capabilities" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">Capabilities</a>
-                <a href="#industries" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">Industries</a>
-                <a href="#quality" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">Quality</a>
-                <a href="#facilities" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">Facilities</a>
-                <a href="#rfq" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium tracking-wide">RFQ Portal</a>
+              <div className="px-6 py-6 space-y-4 flex flex-col">
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">About Us</a>
+                <a href="#capabilities" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">Capabilities</a>
+                <a href="#industries" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">Industries</a>
+                <a href="#quality" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">Quality</a>
+                <a href="#facilities" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">Facilities</a>
+                <a href="#rfq" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-[#4B5563] no-underline">RFQ Portal</a>
                 <a 
                   href="#rfq" 
                   onClick={() => setMobileMenuOpen(false)} 
-                  className="w-full text-center py-3 bg-brand-orange text-white uppercase tracking-wider font-mono text-xs rounded-sm font-bold"
+                  className="w-full text-center py-4 bg-[#FF6B00] text-white uppercase tracking-widest font-mono text-xs font-bold no-underline"
                 >
                   Request Quote
                 </a>
@@ -365,188 +361,149 @@ function App() {
         </AnimatePresence>
       </header>
 
-      {/* 2. Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Glow backdrop fallback representing molten metal */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,85,0,0.12),transparent_60%)] pointer-events-none" />
+      {/* ========================================== */}
+      {/* 2. BRIGHT SCANDINAVIAN HERO CONTEXT       */}
+      {/* ========================================== */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#F5F1EB] pt-24">
         
-        {/* Abstract animated lines representation */}
-        <div className={`absolute inset-0 opacity-10 pointer-events-none ${isDark ? 'blueprint-grid' : 'blueprint-grid-light'}`} />
-        
-        {/* Dynamic Canvas Spark Simulation / Metal Texture Fallback */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-transparent to-brand-charcoal/70 dark:block hidden" />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-light-bg via-transparent to-brand-light-bg/70 dark:hidden" />
-          
-          {/* Loop-style industrial dynamic background simulation using CSS */}
-          <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40 dark:opacity-20 blur-[120px] rounded-full bg-gradient-to-tr from-brand-orange to-yellow-500 animate-pulse duration-10000" />
+        {/* Soft layout aesthetic print - NO multiply or dark filters */}
+        <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
+          <img 
+            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80" 
+            alt="Foundry Background" 
+            className="w-full h-full object-cover"
+          />
         </div>
+        <div className="absolute inset-0 z-1 pointer-events-none bg-gradient-to-b from-white/40 via-transparent to-[#F5F1EB]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center text-center">
-          {/* Small technical tag */}
+          
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-brand-orange/30 bg-brand-orange/5 mb-6"
+            className="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-[#FF6B00]/30 bg-[#FF6B00]/5 mb-6"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-ping" />
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-orange font-bold">ESTABLISHED 1965 | GLOBAL EXPORT-READY</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00]" />
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#FF6B00] font-bold">ESTABLISHED 1965 | GLOBAL EXPORT-READY</span>
           </motion.div>
 
-          {/* Hero Main Heading (French cinematic typography) */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight max-w-5xl leading-[1.05]"
-          >
-            PRECISION <span className="text-brand-orange font-extrabold">ALUMINIUM CASTINGS</span> FOR GLOBAL OEMs
-          </motion.h1>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#1A1A1D] max-w-5xl leading-[1.05]">
+            PRECISION <span className="text-[#FF6B00] font-extrabold">ALUMINIUM CASTINGS</span> FOR GLOBAL OEMs
+          </h1>
 
-          {/* Taglines scroll */}
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className={`mt-8 text-base sm:text-xl font-medium tracking-wide max-w-3xl ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}
-          >
+          <p className="mt-8 text-base sm:text-xl font-light tracking-wide max-w-3xl text-[#4B5563]">
             Built on Quality. Cast for Performance. We deliver technology-driven casting excellence and reliability into every critical industrial component.
-          </motion.p>
+          </p>
 
-          {/* Hero CTAs */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6"
-          >
+          <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
             <a 
               href="#rfq" 
-              className="inline-flex items-center justify-center px-8 py-4 bg-brand-orange text-white uppercase tracking-wider font-mono text-sm rounded-sm font-bold shadow-lg hover:bg-brand-orange-hover hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#FF6B00] hover:bg-[#1A1A1D] text-white uppercase tracking-wider font-mono text-sm rounded-none font-bold shadow-xs no-underline transition-colors duration-300"
             >
               Discuss Your Requirement <ChevronRight className="ml-2 w-4 h-4" />
             </a>
             <a 
               href="#capabilities" 
-              className={`inline-flex items-center justify-center px-8 py-4 border uppercase tracking-wider font-mono text-sm rounded-sm font-medium hover:bg-white/5 transition-all duration-300 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-brand-light-text hover:bg-black/5'}`}
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#1A1A1D] border border-gray-300 hover:bg-gray-50 uppercase tracking-wider font-mono text-sm rounded-none font-medium shadow-2xs no-underline transition-all duration-300"
             >
               View Capabilities
             </a>
-          </motion.div>
-        </div>
-
-        {/* Cinematic scroll down arrow */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50 z-10 pointer-events-none">
-          <div className={`w-6 h-10 rounded-full border-2 flex items-start justify-center p-1 ${isDark ? 'border-white/30' : 'border-black/30'}`}>
-            <span className="w-1.5 h-2 bg-brand-orange rounded-full animate-infinite" />
           </div>
         </div>
       </section>
 
-      {/* 3. About us / Intro overlay tab */}
+      {/* ========================================== */}
+      {/* 3. THE SUPERKINO POSITIONING SUMMARY       */}
+      {/* ========================================== */}
       <section id="about" className="relative z-20 -mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className={`rounded-sm p-8 sm:p-12 border ${isDark ? 'glass-card border-white/5 shadow-2xl bg-brand-card/90' : 'glass-card-light border-black/5 shadow-xl bg-white/95'}`}
+          className="rounded-none p-8 sm:p-12 border border-gray-200 shadow-xl bg-white"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            {/* Superkino Text and Stats */}
             <div className="lg:col-span-7 space-y-6">
-              <h2 className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">THE SUPERKINO STANDARD</h2>
-              <p className={`text-lg sm:text-2xl leading-relaxed font-normal tracking-wide font-display ${isDark ? 'text-gray-100' : 'text-brand-light-text'}`}>
+              <span className="text-xs font-bold tracking-widest text-[#FF6B00] uppercase block">// THE SUPERKINO STANDARD</span>
+              <p className="text-lg sm:text-2xl leading-relaxed font-light tracking-wide text-[#1A1A1D]">
                 Superkino converts complex engineering requirements into precision aluminium castings. Combining advanced casting technologies, process expertise, and high-precision machining, we support global OEMs with reliable components for demanding industrial applications worldwide.
               </p>
               
-              <div className="grid grid-cols-2 gap-4 border-t pt-6 border-gray-500/25">
+              <div className="grid grid-cols-2 gap-4 border-t智能 division pt-6 border-gray-100">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-mono tracking-widest uppercase text-brand-orange font-bold">ESTABLISHED</span>
-                  <p className="text-3xl font-extrabold tracking-tight font-display">1965</p>
-                  <p className={`text-[11px] ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>60+ Years of Quality</p>
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-[#FF6B00] font-bold">ESTABLISHED</span>
+                  <p className="text-3xl font-extrabold tracking-tight text-[#1A1A1D]">1965</p>
+                  <p className="text-[11px] text-[#4B5563] font-light">60+ Years of Quality</p>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-mono tracking-widest uppercase text-brand-orange font-bold">EXPORT READY</span>
-                  <p className="text-3xl font-extrabold tracking-tight font-display">100%</p>
-                  <p className={`text-[11px] ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>Global OEM Standards</p>
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-[#FF6B00] font-bold">EXPORT READY</span>
+                  <p className="text-3xl font-extrabold tracking-tight text-[#1A1A1D]">100%</p>
+                  <p className="text-[11px] text-[#4B5563] font-light">Global OEM Standards</p>
                 </div>
               </div>
             </div>
 
-            {/* Industrial B2B Image Showcase */}
-            <div className="lg:col-span-5 relative overflow-hidden rounded-sm border border-gray-500/20 shadow-lg group">
-              <div className="absolute inset-0 bg-brand-orange/10 mix-blend-overlay opacity-30 group-hover:opacity-10 transition-opacity duration-500" />
+            <div className="lg:col-span-5 relative overflow-hidden rounded-none border border-gray-200 shadow-md group">
               <img 
-                src="/factory_turbine.jpg" 
-                alt="SKINO Advanced Aerospace Turbine Assembly" 
-                className="w-full h-[280px] object-cover transition-transform duration-700 group-hover:scale-105" 
+                src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" 
+                alt="SKINO Structural Metallurgy" 
+                className="w-full h-[280px] object-cover transition-transform duration-700 group-hover:scale-105 grayscale opacity-90" 
               />
-              <div className="absolute bottom-3 left-3 px-2.5 py-1.5 bg-brand-charcoal/85 backdrop-blur-sm border border-white/10 rounded-sm">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-brand-orange font-bold">Advanced Aerospace Assembly</span>
-              </div>
             </div>
 
           </div>
         </motion.div>
       </section>
 
-      {/* 4. Capabilities Grid */}
-      <section id="capabilities" className="py-24 sm:py-32 relative">
+      {/* ========================================== */}
+      {/* 4. ECO-GRID CAPABILITIES LAYOUT            */}
+      {/* ========================================== */}
+      <section id="capabilities" className="py-24 sm:py-32 relative bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-20">
-            <span className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">OUR ENGINEERING RANGE</span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">MANUFACTURING CAPABILITIES</h2>
-            <p className={`text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-              End-to-end solutions from mold design, casting, thermal enhancements, machining to laboratory validation.
+            <span className="text-xs uppercase font-mono tracking-widest text-[#FF6B00] font-bold">OUR ENGINEERING RANGE</span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#1A1A1D]">MANUFACTURING CAPABILITIES</h2>
+            <p className="text-sm sm:text-base text-[#4B5563] font-light">
+              End-to-end solutions from mold design, casting, thermal enhancements, machining to laboratory validation profiles.
             </p>
           </div>
 
-          {/* Capabilities 3x3 Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {capabilities.map((cap, index) => {
               const IconComp = cap.icon
               const isSelected = activeCapability === cap.id
               
               return (
-                <motion.div 
+                <div 
                   key={cap.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
                   onClick={() => setActiveCapability(isSelected ? null : cap.id)}
-                  className={`group relative overflow-hidden p-8 border rounded-sm cursor-pointer transition-all duration-500 glow-border ${
-                    isDark 
-                      ? 'bg-brand-card/30 border-white/5 hover:border-brand-orange/30' 
-                      : 'bg-white/40 border-black/5 hover:border-brand-orange/30'
-                  } ${isSelected ? 'ring-1 ring-brand-orange/40' : ''}`}
+                  className={`group relative overflow-hidden p-8 border rounded-none cursor-pointer transition-all duration-500 bg-white border-gray-200 hover:border-[#FF6B00] ${
+                    isSelected ? 'ring-1 ring-[#FF6B00]/40' : ''
+                  }`}
                 >
                   <div className="flex justify-between items-start">
-                    <div className="p-3 bg-brand-orange/5 border border-brand-orange/10 rounded-sm group-hover:bg-brand-orange group-hover:text-white transition-all duration-500">
-                      <IconComp className="w-6 h-6 text-brand-orange group-hover:text-white transition-all duration-500" />
+                    <div className="p-3 bg-[#FF6B00]/5 border border-[#FF6B00]/10 rounded-none group-hover:bg-[#FF6B00] group-hover:text-white transition-all duration-500">
+                      <IconComp className="w-6 h-6 text-[#FF6B00] group-hover:text-white transition-all duration-500" />
                     </div>
-                    <span className="text-[10px] font-mono text-brand-orange tracking-widest uppercase font-bold">{cap.metric}</span>
+                    <span className="text-[10px] font-mono text-[#FF6B00] tracking-widest uppercase font-bold">{cap.metric}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold font-display mt-6 tracking-wide">{cap.title}</h3>
-                  <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>{cap.desc}</p>
+                  <h3 className="text-xl font-bold mt-6 tracking-wide text-[#1A1A1D]">{cap.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#4B5563] font-light">{cap.desc}</p>
                   
-                  {/* Bullet specs summary */}
-                  <ul className="mt-4 space-y-2 border-t pt-4 border-gray-500/10">
+                  <ul className="mt-4 space-y-2 border-t pt-4 border-gray-100 list-none p-0">
                     {cap.specs.slice(0, 2).map((spec, sidx) => (
                       <li key={sidx} className="flex items-center text-xs font-mono">
-                        <Check className="w-3 h-3 text-brand-orange mr-2 flex-shrink-0" />
-                        <span className={`${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>{spec}</span>
+                        <Check className="w-3 h-3 text-[#FF6B00] mr-2 flex-shrink-0" />
+                        <span className="text-[#4B5563]">{spec}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Expandable panel for Swedish style detailing */}
                   <AnimatePresence>
                     {isSelected && (
                       <motion.div 
@@ -554,14 +511,14 @@ function App() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="mt-4 pt-4 border-t border-gray-500/10 text-xs space-y-3"
+                        className="mt-4 pt-4 border-t border-gray-100 text-xs space-y-3"
                       >
-                        <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>{cap.detail}</p>
-                        <div className="p-2.5 rounded-sm bg-brand-orange/5 border border-brand-orange/10">
-                          <span className="font-semibold block text-[10px] uppercase font-mono tracking-wider text-brand-orange">Engineering Specs</span>
-                          <ul className="mt-1.5 space-y-1 font-mono text-[10px] list-disc list-inside">
+                        <p className="leading-relaxed text-[#4B5563] font-light">{cap.detail}</p>
+                        <div className="p-2.5 rounded-none bg-[#FF6B00]/5 border border-[#FF6B00]/10">
+                          <span className="font-semibold block text-[10px] uppercase font-mono tracking-wider text-[#FF6B00]">Engineering Data Grid</span>
+                          <ul className="mt-1.5 space-y-1 font-mono text-[10px] list-disc list-inside text-[#4B5563] p-0">
                             {cap.specs.map((spec, sidx) => (
-                              <li key={sidx} className={`${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>{spec}</li>
+                              <li key={sidx}>{spec}</li>
                             ))}
                           </ul>
                         </div>
@@ -569,11 +526,11 @@ function App() {
                     )}
                   </AnimatePresence>
 
-                  <div className="mt-6 flex items-center justify-between text-xs font-mono font-bold tracking-wider text-brand-orange group-hover:translate-x-1 transition-all duration-300">
+                  <div className="mt-6 flex items-center justify-between text-xs font-mono font-bold tracking-wider text-[#FF6B00] group-hover:translate-x-1 transition-all duration-300">
                     <span>{isSelected ? 'COLLAPSE DETAILS' : 'EXPLORE SPECS'}</span>
                     <ChevronRight size={14} />
                   </div>
-                </motion.div>
+                </div>
               )
             })}
           </div>
@@ -581,23 +538,23 @@ function App() {
         </div>
       </section>
 
-      {/* 5. Industries Segment */}
-      <section id="industries" className={`py-24 sm:py-32 border-t border-b ${isDark ? 'bg-brand-dark/50 border-white/5' : 'bg-white border-black/5'}`}>
+      {/* ========================================== */}
+      {/* 5. INTERACTIVE TARGET INDUSTRIES PLATFORM  */}
+      {/* ========================================== */}
+      <section id="industries" className="py-24 sm:py-32 bg-white border-t border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-6">
             <div className="max-w-2xl space-y-4">
-              <span className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">SECTORS WE SERVE</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">APPLICATION INDUSTRIES</h2>
+              <span className="text-xs uppercase font-mono tracking-widest text-[#FF6B00] font-bold">SECTORS WE SERVE</span>
+              <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#1A1A1D]">APPLICATION INDUSTRIES</h2>
             </div>
-            <p className={`max-w-md text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-              Delivering high-reliability casting components engineered to sustain chemical corrosion, thermal fatigue, and heavy stress.
+            <p className="max-w-md text-sm sm:text-base text-[#4B5563] font-light leading-relaxed">
+              Delivering high-reliability casting components engineered to sustain chemical corrosion, thermal fatigue, and continuous load factors.
             </p>
           </div>
 
-          {/* Interactive list explorer style */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* List side */}
             <div className="lg:col-span-5 space-y-3">
               {industries.map((ind) => {
                 const IconComp = ind.icon
@@ -606,25 +563,22 @@ function App() {
                   <div 
                     key={ind.id}
                     onClick={() => setActiveIndustry(isActive ? null : ind.id)}
-                    className={`flex items-center justify-between p-5 border rounded-sm cursor-pointer transition-all duration-300 ${
+                    className={`flex items-center justify-between p-5 border rounded-none cursor-pointer transition-all duration-300 ${
                       isActive 
-                        ? 'bg-brand-orange text-white border-brand-orange' 
-                        : isDark
-                          ? 'bg-brand-card/40 border-white/5 hover:bg-brand-card/70'
-                          : 'bg-brand-light-card border-black/5 hover:bg-brand-light-bg'
+                        ? 'bg-[#FF6B00] text-white border-[#FF6B00]' 
+                        : 'bg-[#F9FAFB] border-gray-200 hover:bg-white'
                     }`}
                   >
                     <div className="flex items-center space-x-4">
-                      <IconComp className={`w-5 h-5 ${isActive ? 'text-white' : 'text-brand-orange'}`} />
-                      <span className="text-sm font-bold tracking-wide font-display">{ind.name}</span>
+                      <IconComp className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#FF6B00]'}`} />
+                      <span className={`text-sm font-bold tracking-wide ${isActive ? 'text-white' : 'text-[#1A1A1D]'}`}>{ind.name}</span>
                     </div>
-                    <ChevronRight size={16} className={`transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`} />
+                    <ChevronRight size={16} className={`transition-transform duration-300 ${isActive ? 'rotate-90 text-white' : 'text-gray-400'}`} />
                   </div>
                 )
               })}
             </div>
 
-            {/* Showcase side (Swedish elegance) */}
             <div className="lg:col-span-7 flex flex-col justify-between min-h-[400px]">
               <AnimatePresence mode="wait">
                 {activeIndustry ? (
@@ -638,26 +592,26 @@ function App() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.4 }}
-                        className={`h-full flex flex-col justify-between p-8 sm:p-12 border rounded-sm ${isDark ? 'bg-brand-card border-white/5' : 'bg-brand-light-card border-black/5'}`}
+                        className="h-full flex flex-col justify-between p-8 sm:p-12 border rounded-none bg-[#FFFDF9] border-gray-200 shadow-2xs"
                       >
                         <div className="space-y-6">
-                          <div className="flex items-center space-x-3 text-brand-orange">
+                          <div className="flex items-center space-x-3 text-[#FF6B00]">
                             <IndIcon className="w-8 h-8" />
                             <span className="text-xs uppercase font-mono tracking-widest font-bold">Component Engineering Data</span>
                           </div>
                           
-                          <h3 className="text-2xl sm:text-4xl font-extrabold font-display leading-tight">{currentInd.name}</h3>
-                          <p className={`text-base sm:text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>{currentInd.desc}</p>
+                          <h3 className="text-2xl sm:text-4xl font-light text-[#1A1A1D] leading-tight">{currentInd.name}</h3>
+                          <p className="text-base sm:text-lg leading-relaxed text-[#4B5563] font-light">{currentInd.desc}</p>
                         </div>
 
-                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-8 border-gray-500/15">
+                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-8 border-gray-200">
                           <div className="space-y-1">
-                            <span className="text-[10px] uppercase font-mono tracking-widest text-brand-orange font-bold">Primary Alloy Selection</span>
-                            <p className="text-base font-bold font-mono">{currentInd.alloy}</p>
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-[#FF6B00] font-bold">Primary Alloy Selection</span>
+                            <p className="text-base font-bold font-mono text-[#1A1A1D]">{currentInd.alloy}</p>
                           </div>
                           <div className="space-y-1">
-                            <span className="text-[10px] uppercase font-mono tracking-widest text-brand-orange font-bold">Engineering Requirement</span>
-                            <p className="text-base font-bold font-display">{currentInd.highlight}</p>
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-[#FF6B00] font-bold">Engineering Requirement</span>
+                            <p className="text-base font-bold text-[#1A1A1D]">{currentInd.highlight}</p>
                           </div>
                         </div>
                       </motion.div>
@@ -668,12 +622,12 @@ function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className={`h-full flex flex-col items-center justify-center text-center p-12 border border-dashed rounded-sm ${isDark ? 'border-white/10' : 'border-black/10'}`}
+                    className="h-full flex flex-col items-center justify-center text-center p-12 border border-dashed rounded-none border-gray-300 bg-[#F9FAFB]"
                   >
-                    <Briefcase className="w-12 h-12 text-brand-orange mb-4 opacity-50" />
-                    <h3 className="text-xl font-bold font-display">Select an Industry</h3>
-                    <p className={`text-xs max-w-sm mt-2 leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-                      Select any sector on the left to reveal our component layouts, engineering alloy choices, and performance specifications.
+                    <Briefcase className="w-12 h-12 text-[#FF6B00] mb-4 opacity-50" />
+                    <h3 className="text-xl font-bold text-[#1A1A1D]">Select an Industry</h3>
+                    <p className="text-xs max-w-sm mt-2 leading-relaxed text-[#4B5563] font-light">
+                      Select any sector on the left to reveal our component configurations, choose alloys, and operational specs layouts.
                     </p>
                   </motion.div>
                 )}
@@ -684,83 +638,74 @@ function App() {
         </div>
       </section>
 
-      {/* 6. Quality & Laboratory certifications */}
-      <section id="quality" className="py-24 sm:py-32 relative">
+      {/* ========================================== */}
+      {/* 6. SYSTEMATIC QUALITY CERTIFICATION LAB    */}
+      {/* ========================================== */}
+      <section id="quality" className="py-24 sm:py-32 relative bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Certifications badges */}
             <div className="lg:col-span-6 space-y-8">
-              <span className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">QUALITY ASSURANCE</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display leading-none">CERTIFIED PROCESS RELIABILITY</h2>
-              <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
+              <span className="text-xs font-bold uppercase font-mono tracking-widest text-[#FF6B00]">QUALITY ASSURANCE</span>
+              <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#1A1A1D] leading-none">CERTIFIED PROCESS RELIABILITY</h2>
+              <p className="text-sm sm:text-base leading-relaxed text-[#4B5563] font-light">
                 Quality is in our foundation. We maintain strict compliance with global quality and environmental standards across all plant operations.
               </p>
 
-              {/* ISO Certification Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {['ISO 9001', 'ISO 14001', 'ISO 45001'].map((iso) => (
-                  <div 
-                    key={iso}
-                    className={`p-5 border text-center rounded-sm ${isDark ? 'bg-brand-card/40 border-white/5' : 'bg-white border-black/5'}`}
-                  >
-                    <ShieldCheck className="w-8 h-8 text-brand-orange mx-auto mb-3" />
-                    <span className="text-lg font-bold font-display block">{iso}</span>
-                    <span className="text-[10px] font-mono tracking-wider text-green-500 uppercase font-semibold">CERTIFIED</span>
+                  <div key={iso} className="p-5 border text-center rounded-none bg-[#F9FAFB] border-gray-200 shadow-2xs">
+                    <ShieldCheck className="w-8 h-8 text-[#FF6B00] mx-auto mb-3" />
+                    <span className="text-lg font-bold block text-[#1A1A1D]">{iso}</span>
+                    <span className="text-[10px] font-mono tracking-wider text-green-600 uppercase font-semibold">CERTIFIED</span>
                   </div>
                 ))}
               </div>
 
-              {/* In-progress counts */}
               <div className="space-y-4 pt-4">
-                <h3 className="text-sm uppercase font-mono tracking-wider text-brand-orange font-bold">Roadmap Certifications</h3>
+                <h3 className="text-sm uppercase font-mono tracking-wider text-[#FF6B00] font-bold">Roadmap Certifications</h3>
                 
-                {/* AS9100 */}
                 <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-mono">
-                    <span className="font-bold">AS9100 (Aerospace & Defence Quality)</span>
-                    <span className="text-brand-orange">In progress (Dec-2026 Target)</span>
+                  <div className="flex justify-between text-xs font-mono text-[#4B5563]">
+                    <span className="font-bold">AS9100 (Aerospace & Defence Quality Framework)</span>
+                    <span className="text-[#FF6B00]">In progress (Dec-2026 Target)</span>
                   </div>
-                  <div className={`h-2 w-full rounded-full overflow-hidden ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
-                    <div className="h-full bg-brand-orange rounded-full" style={{ width: '80%' }}></div>
+                  <div className="h-2 w-full rounded-none overflow-hidden bg-gray-200">
+                    <div className="h-full bg-[#FF6B00]" style={{ width: '80%' }}></div>
                   </div>
                 </div>
 
-                {/* IATF */}
                 <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-mono">
+                  <div className="flex justify-between text-xs font-mono text-[#4B5563]">
                     <span className="font-bold">IATF 16949 (Automotive Quality Management)</span>
-                    <span className="text-brand-orange">In progress (Mar-27 Target)</span>
+                    <span className="text-[#FF6B00]">Planned (Mar-2027 Target)</span>
                   </div>
-                  <div className={`h-2 w-full rounded-full overflow-hidden ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
-                    <div className="h-full bg-brand-orange rounded-full" style={{ width: '60%' }}></div>
+                  <div className="h-2 w-full rounded-none overflow-hidden bg-gray-200">
+                    <div className="h-full bg-[#FF6B00]" style={{ width: '60%' }}></div>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            {/* In-house Laboratory details */}
             <div className="lg:col-span-6">
-              <div className={`p-8 border rounded-sm ${isDark ? 'bg-brand-card/60 border-white/5' : 'bg-white border-black/5 shadow-md'}`}>
-                <h3 className="text-xl font-bold font-display mb-6 border-b pb-4 border-gray-500/15">In-House Laboratory & Testing Equipment</h3>
-                
-                <ul className="space-y-4">
+              <div className="p-8 border rounded-none bg-white border-gray-200 shadow-md">
+                <h3 className="text-xl font-bold mb-6 border-b pb-4 border-gray-200 text-[#1A1A1D]">In-House Laboratory & Testing Equipment</h3>
+                <ul className="space-y-4 list-none p-0 m-0">
                   {[
-                    { name: 'Optical Emission Spectrometer', role: 'Ensures absolute chemical alloy composition compliance.' },
-                    { name: 'Coordinate Measuring Machine (CMM)', role: 'Fully automated 3D dimensional tolerance mapping.' },
-                    { name: 'X-Ray & Radiography Testing', role: 'Real-time internal density and blow-hole detection.' },
-                    { name: 'Universal Testing Machine (UTM)', role: 'Verifies tensile parameters, elongation, and yield strength.' },
-                    { name: 'Hardness & Microstructure Tester', role: 'Evaluates crystal structures and Brinell hardness levels.' }
+                    { name: 'Optical Emission Spectrometer', role: 'Ensures absolute chemical alloy composition compliance metrics.' },
+                    { name: 'Coordinate Measuring Machine (CMM)', role: 'Fully automated 3D dimensional tolerance mapping down to microns.' },
+                    { name: 'X-Ray & Radiography Testing', role: 'Real-time structural density and blow-hole detection profiles.' },
+                    { name: 'Universal Testing Machine (UTM)', role: 'Verifies tensile parameters, elongation, and structural yield stability.' },
+                    { name: 'Hardness & Microstructure Verification', role: 'Evaluates boundary structures and Brinell parameters.' }
                   ].map((eq, eidx) => (
                     <li key={eidx} className="flex items-start space-x-3">
-                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-[10px] font-mono text-brand-orange font-bold">
+                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-none bg-[#FF6B00]/10 border border-[#FF6B00]/20 flex items-center justify-center text-[10px] font-mono text-[#FF6B00] font-bold">
                         {eidx + 1}
                       </div>
                       <div>
-                        <span className="text-sm font-bold block">{eq.name}</span>
-                        <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>{eq.role}</span>
+                        <span className="text-sm font-bold block text-[#1A1A1D]">{eq.name}</span>
+                        <span className="text-xs text-[#4B5563] font-light">{eq.role}</span>
                       </div>
                     </li>
                   ))}
@@ -769,43 +714,39 @@ function App() {
             </div>
 
           </div>
-
         </div>
       </section>
 
-      {/* 7. Facility Stats Segment */}
-      <section id="facilities" className={`py-24 sm:py-32 border-t border-b ${isDark ? 'bg-brand-dark/50 border-white/5' : 'bg-white border-black/5'}`}>
+      {/* ========================================== */}
+      {/* 7. FACILITIES INFRASTRUCTURE RUNTIME STATS */}
+      {/* ========================================== */}
+      <section id="facilities" className="py-24 sm:py-32 bg-[#F9FAFB] border-t border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-20">
-            <span className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">INFRASTRUCTURE CAPACITY</span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">PLANT & FACILITY METRICS</h2>
-            <p className={`text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-              High-output manufacturing facilities engineered to fulfill demanding heavy-volume global OEM contracts.
+            <span className="text-xs uppercase font-mono tracking-widest text-[#FF6B00] font-bold">INFRASTRUCTURE CAPACITY</span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#1A1A1D]">PLANT & FACILITY METRICS</h2>
+            <p className="text-sm sm:text-base text-[#4B5563] font-light">
+              High-output industrial spaces engineered to support continuous heavy contractual scopes without downtime logs.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
-              { label: 'FURNACE & POURING', val: '5,000 T', sub: 'Annum melting capacity', detail: '3x Inductotherm furnaces' },
-              { label: 'CASTING WEIGHT', val: '0.1-150', sub: 'Kilograms per single component', detail: 'Micro parts to heavy casings' },
-              { label: 'MACHINING CENTERS', val: '12x CNC', sub: 'Mazak & Haas centers', detail: '5-Axis precision lines' },
-              { label: 'LEAK TESTING', val: '10 BAR', sub: 'Differential Pressure testing', detail: '100% defect containment' },
-              { label: 'ANNUAL CAPACITY', val: '4,500 MT', sub: 'Finished casting parts', detail: 'Global delivery index' }
+              { label: 'FURNACE & POURING', val: '5,000 T', sub: 'Annum melting capacity', detail: '3x Inductotherm units' },
+              { label: 'CASTING WEIGHT RANGE', val: '0.1-150', sub: 'Kilograms per part', detail: 'Micro items to heavy casings' },
+              { label: 'MACHINING INSTALLATIONS', val: '12x CNC', sub: 'Mazak & Haas centers', detail: 'Precision 5-Axis tooling' },
+              { label: 'LEAK CONTAINER TESTING', val: '10 BAR', sub: 'Differential decay checking', detail: '100% diagnostic track' },
+              { label: 'ANNUAL PLANT THROUGHPUT', val: '4,500 MT', sub: 'Finished casting output', detail: 'Global OEM delivery chain' }
             ].map((stat, sidx) => (
-              <div 
-                key={sidx}
-                className={`p-6 border rounded-sm flex flex-col justify-between min-h-[220px] ${
-                  isDark ? 'bg-brand-card/40 border-white/5' : 'bg-brand-light-card border-black/5'
-                }`}
-              >
+              <div key={sidx} className="p-6 border rounded-none flex flex-col justify-between min-h-[220px] bg-white border-gray-200 shadow-2xs hover:border-[#FF6B00] transition-colors duration-300">
                 <div>
-                  <span className="text-[10px] font-mono tracking-widest uppercase text-brand-orange font-bold block">{stat.label}</span>
-                  <p className="text-3xl font-extrabold tracking-tight font-display mt-4">{stat.val}</p>
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-[#FF6B00] font-bold block">{stat.label}</span>
+                  <p className="text-3xl font-extrabold tracking-tight text-[#1A1A1D] mt-4">{stat.val}</p>
                 </div>
-                <div className="border-t pt-4 border-gray-500/10 mt-6">
-                  <span className="text-xs font-bold block">{stat.sub}</span>
-                  <span className={`text-[11px] block mt-0.5 ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>{stat.detail}</span>
+                <div className="border-t pt-4 border-gray-100 mt-6">
+                  <span className="text-xs font-bold block text-[#1A1A1D]">{stat.sub}</span>
+                  <span className="text-[11px] block mt-0.5 text-[#4B5563] font-light">{stat.detail}</span>
                 </div>
               </div>
             ))}
@@ -814,20 +755,20 @@ function App() {
         </div>
       </section>
 
-      {/* 8. RFQ Portal / Page Form */}
-      <section id="rfq" className="py-24 sm:py-32 relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,85,0,0.08),transparent_50%)] pointer-events-none" />
-
+      {/* ========================================== */}
+      {/* 8. PROCUREMENT RFQ SUBMISSION ENGINE       */}
+      {/* ========================================== */}
+      <section id="rfq" className="py-24 sm:py-32 relative bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
-            <span className="text-xs uppercase font-mono tracking-widest text-brand-orange font-bold">DIGITAL ESTIMATION</span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">REQUEST ENGINEERING QUOTE</h2>
-            <p className={`text-sm sm:text-base max-w-xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-              Upload your 2D/3D part drawings. Our metallurgical engineers will return a detailed casting and machining quote.
+            <span className="text-xs uppercase font-mono tracking-widest text-[#FF6B00] font-bold">DIGITAL SOURCING</span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#1A1A1D]">REQUEST ENGINEERING QUOTE</h2>
+            <p className="text-sm sm:text-base max-w-xl mx-auto text-[#4B5563] font-light">
+              Transmit your technical CAD blueprints below. SGI technical desks complete process tooling feasibility tracking within 24 hours.
             </p>
           </div>
 
-          <div className={`p-8 sm:p-12 border rounded-sm ${isDark ? 'bg-brand-card border-white/5 shadow-2xl' : 'bg-white border-black/5 shadow-lg'}`}>
+          <div className="p-8 sm:p-12 border rounded-none bg-white border-gray-200 shadow-lg">
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.form 
@@ -838,91 +779,79 @@ function App() {
                   onSubmit={handleRFQSubmit} 
                   className="space-y-6"
                 >
-                  
-                  {/* Grid 1: Name & Company */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase tracking-wider font-bold">Contact Name *</label>
+                      <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Contact Name *</label>
                       <input 
+                        required
                         type="text" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="e.g. John Doe"
-                        className={`w-full px-4 py-3 rounded-sm border text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                          isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                        }`}
+                        placeholder="John Doe"
+                        className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm focus:outline-none focus:border-[#FF6B00] bg-[#F9FAFB]"
                       />
-                      {formErrors.name && <span className="text-[11px] text-red-500 font-mono flex items-center"><FileText size={12} className="mr-1" /> {formErrors.name}</span>}
+                      {formErrors.name && <span className="text-[11px] text-red-500 font-mono flex items-center">{formErrors.name}</span>}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase tracking-wider font-bold">Company Name *</label>
+                      <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Company Legal Name *</label>
                       <input 
+                        required
                         type="text" 
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        placeholder="e.g. Siemens Gmbh"
-                        className={`w-full px-4 py-3 rounded-sm border text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                          isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                        }`}
+                        placeholder="Siemens AG"
+                        className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm focus:outline-none focus:border-[#FF6B00] bg-[#F9FAFB]"
                       />
-                      {formErrors.company && <span className="text-[11px] text-red-500 font-mono flex items-center"><FileText size={12} className="mr-1" /> {formErrors.company}</span>}
+                      {formErrors.company && <span className="text-[11px] text-red-500 font-mono flex items-center">{formErrors.company}</span>}
                     </div>
                   </div>
 
-                  {/* Grid 2: Email & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase tracking-wider font-bold">Email Address *</label>
+                      <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Corporate Email *</label>
                       <input 
+                        required
                         type="email" 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="e.g. purchasing@siemens.com"
-                        className={`w-full px-4 py-3 rounded-sm border text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                          isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                        }`}
+                        placeholder="procurement@company.com"
+                        className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm focus:outline-none focus:border-[#FF6B00] bg-[#F9FAFB]"
                       />
-                      {formErrors.email && <span className="text-[11px] text-red-500 font-mono flex items-center"><FileText size={12} className="mr-1" /> {formErrors.email}</span>}
+                      {formErrors.email && <span className="text-[11px] text-red-500 font-mono flex items-center">{formErrors.email}</span>}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase tracking-wider font-bold">Phone Number</label>
+                      <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Phone Number</label>
                       <input 
                         type="tel" 
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="e.g. +49 89 23456"
-                        className={`w-full px-4 py-3 rounded-sm border text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                          isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                        }`}
+                        placeholder="+91 XXXXX XXXXX"
+                        className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm focus:outline-none focus:border-[#FF6B00] bg-[#F9FAFB]"
                       />
                     </div>
                   </div>
 
-                  {/* Grid 3: Alloy Selection & Quantity */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-6 border-gray-500/10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-6 border-gray-100">
                     <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase tracking-wider font-bold">Aluminium Alloy Required</label>
+                      <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Aluminium Alloy Profile</label>
                       <select 
                         value={alloy}
                         onChange={(e) => setAlloy(e.target.value)}
-                        className={`w-full px-4 py-3 rounded-sm border text-sm font-mono focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                          isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                        }`}
+                        className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm font-mono focus:outline-none focus:border-[#FF6B00] bg-white"
                       >
-                        <option value="A356">AlSi7Mg0.3 (A356) - Structural / Electrical</option>
-                        <option value="ADC12">ADC12 / AlSi9Cu3 - High Machinability</option>
-                        <option value="LM6">LM6 / AlSi12 - High Corrosion Resistance</option>
-                        <option value="LM25">LM25 / BS1490 - Heavy Load Fatigue</option>
-                        <option value="other">Other / Custom Specifications</option>
+                        <option value="A356">AlSi7Mg0.3 (A356) - Structural Subsystems</option>
+                        <option value="ADC12">ADC12 / AlSi9Cu3 - High Scalability Output</option>
+                        <option value="LM6">LM6 / Galvanic Salt Cavitation Proof</option>
+                        <option value="LM25">LM25 / Heavy solutions parameter framework</option>
                       </select>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <label className="text-xs font-mono uppercase tracking-wider font-bold">Annual Quantity</label>
-                        <span className="text-xs font-mono font-bold text-brand-orange">{quantity.toLocaleString()} Pcs</span>
+                        <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Annual Volume target</label>
+                        <span className="text-xs font-mono font-bold text-[#FF6B00]">{quantity.toLocaleString()} Pcs</span>
                       </div>
                       <input 
                         type="range" 
@@ -931,81 +860,56 @@ function App() {
                         step="1000"
                         value={quantity}
                         onChange={(e) => setQuantity(Number(e.target.value))}
-                        className="w-full h-1.5 bg-gray-500/20 rounded-lg appearance-none cursor-pointer accent-brand-orange focus:outline-none"
+                        className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#FF6B00] bg-gray-200 focus:outline-none"
                       />
-                      <div className="flex justify-between text-[10px] font-mono text-gray-500">
-                        <span>1,000</span>
-                        <span>50,000</span>
-                        <span>100,000+</span>
-                      </div>
                     </div>
                   </div>
 
-                  {/* Drag and Drop Drawing Upload */}
-                  <div className="space-y-2 border-t pt-6 border-gray-500/10">
-                    <label className="text-xs font-mono uppercase tracking-wider font-bold">Engineering Drawing (PDF, STEP, DWG, ZIP) *</label>
-                    
-                    <div className={`relative border border-dashed rounded-sm p-8 text-center transition-all duration-300 ${
-                      drawingFile 
-                        ? 'border-brand-orange/40 bg-brand-orange/5' 
-                        : isDark ? 'border-white/15 bg-brand-dark/30 hover:border-brand-orange/30' : 'border-black/15 bg-brand-light-card hover:border-brand-orange/30'
-                    }`}>
+                  <div className="space-y-2 border-t pt-6 border-gray-100">
+                    <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Attach Print Schematics (PDF, STEP, ZIP) *</label>
+                    <div className="relative border border-dashed rounded-none p-8 text-center bg-[#F9FAFB] border-gray-300 hover:border-[#FF6B00] transition-colors">
                       <input 
                         type="file" 
-                        id="drawing-file"
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.zip,.rar"
                       />
-                      
                       <div className="flex flex-col items-center justify-center space-y-2 pointer-events-none">
-                        <UploadCloud className={`w-8 h-8 ${drawingFile ? 'text-brand-orange' : 'text-gray-400'}`} />
+                        <UploadCloud className={`w-8 h-8 ${drawingFile ? 'text-[#FF6B00]' : 'text-gray-400'}`} />
                         {drawingFile ? (
-                          <div className="text-center">
-                            <span className="text-sm font-bold font-mono block text-brand-orange">{drawingFile.name}</span>
+                          <div>
+                            <span className="text-sm font-bold font-mono text-[#FF6B00] block">{drawingFile.name}</span>
                             <span className="text-xs text-gray-400">({(drawingFile.size / (1024 * 1024)).toFixed(2)} MB)</span>
                           </div>
                         ) : (
                           <div>
-                            <span className="text-sm font-bold block">Drag & drop files here, or click to browse</span>
+                            <span className="text-sm font-bold text-[#1A1A1D] block">Drag & drop files here, or explore folders</span>
                             <span className="text-xs text-gray-400 block mt-1">Accepts STEP, STP, DWG, DXF, PDF, ZIP (Max 25MB)</span>
                           </div>
                         )}
                       </div>
                     </div>
-                    {formErrors.file && <span className="text-[11px] text-red-500 font-mono flex items-center"><FileText size={12} className="mr-1" /> {formErrors.file}</span>}
+                    {formErrors.file && <span className="text-[11px] text-red-500 font-mono flex items-center">{formErrors.file}</span>}
                   </div>
 
-                  {/* Message */}
                   <div className="space-y-2">
-                    <label className="text-xs font-mono uppercase tracking-wider font-bold">Additional Technical Instructions</label>
+                    <label className="text-xs font-mono uppercase tracking-wider font-bold text-[#1A1A1D]">Technical Directives / Notes</label>
                     <textarea 
-                      rows="4"
+                      rows={4}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Specify heat treatment requirements (T6, etc.), pressure testing limits, surface finishes, or machining tolerances."
-                      className={`w-full px-4 py-3 rounded-sm border text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-orange focus:border-brand-orange transition-all duration-300 ${
-                        isDark ? 'bg-brand-dark border-white/10 text-white' : 'bg-brand-light-card border-black/10 text-brand-light-text'
-                      }`}
+                      placeholder="Specify critical solutions, surface coatings or leak verification criteria drops..."
+                      className="w-full px-4 py-3 rounded-none border border-gray-200 text-sm focus:outline-none focus:border-[#FF6B00] bg-[#F9FAFB] resize-none"
                     />
                   </div>
 
-                  {/* Button */}
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full py-4 bg-brand-orange text-white font-mono uppercase tracking-widest font-bold text-sm rounded-sm hover:bg-brand-orange-hover shadow-lg hover:shadow-xl active:scale-99 transition-all duration-300 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-55"
+                    className="w-full py-4 bg-[#1A1A1D] hover:bg-[#FF6B00] text-white font-mono uppercase tracking-widest font-bold text-sm rounded-none transition-all duration-300 shadow-md cursor-pointer border-none disabled:opacity-50"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2" />
-                        <span>PROCESSING ESTIMATION...</span>
-                      </>
-                    ) : (
-                      <span>SUBMIT DESIGN DRAWINGS</span>
-                    )}
+                    {isSubmitting ? 'PROCESSING ESTIMATION...' : 'SUBMIT DESIGN BLUEPRINTS'}
                   </button>
-
                 </motion.form>
               ) : (
                 <motion.div 
@@ -1014,27 +918,22 @@ function App() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="py-12 text-center space-y-6"
                 >
-                  <div className="w-16 h-16 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center mx-auto">
-                    <Check className="w-8 h-8 text-brand-orange" />
+                  <div className="w-16 h-16 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto">
+                    <Check className="w-8 h-8 text-green-600" />
                   </div>
                   
                   <div className="space-y-2">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold font-display">RFQ Drawings Submitted</h3>
-                    <p className={`text-sm max-w-md mx-auto ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>
-                      Thank you for submitting your designs to SKINO. Our estimating team has queued your files for alloy composition, casting density validation, and machining time analysis.
+                    <h3 className="text-2xl sm:text-3xl font-bold text-[#1A1A1D]">RFQ Blueprint Synced</h3>
+                    <p className="text-sm max-w-md mx-auto text-[#4B5563] font-light leading-relaxed">
+                      SGI systems have registered your project metrics. Feasibility reference payload allocated code: <span className="font-mono font-bold text-[#1A1A1D]">#SGI-{Math.floor(4000 + Math.random() * 5000)}</span>.
                     </p>
-                  </div>
-
-                  <div className={`p-4 border rounded-sm max-w-sm mx-auto font-mono text-xs ${isDark ? 'bg-brand-dark border-white/10' : 'bg-brand-light-card border-black/10'}`}>
-                    <span className="text-brand-orange block font-bold">ESTIMATED RESPONSE</span>
-                    <span className="text-lg font-bold block mt-1">Within 24 Hours</span>
                   </div>
 
                   <button 
                     onClick={() => setIsSubmitted(false)}
-                    className="px-6 py-3 border border-brand-orange/30 text-brand-orange hover:bg-brand-orange/5 text-xs font-mono uppercase tracking-wider rounded-sm font-bold transition-all duration-300"
+                    className="px-6 py-3 border border-[#FF6B00]/30 text-[#FF6B00] hover:bg-[#FF6B00]/5 text-xs font-mono uppercase tracking-wider rounded-none font-bold transition-all duration-300 bg-transparent cursor-pointer"
                   >
-                    Submit Another Drawing
+                    Submit Another Profile
                   </button>
                 </motion.div>
               )}
@@ -1043,74 +942,66 @@ function App() {
         </div>
       </section>
 
-      {/* 9. Footer */}
-      <footer className={`border-t py-16 sm:py-24 ${isDark ? 'bg-brand-charcoal border-white/5' : 'bg-brand-light-bg border-black/5'}`}>
+      {/* ========================================== */}
+      {/* 9. GLOBAL SYSTEM LIGHT FOOTER CONNECTOR    */}
+      {/* ========================================== */}
+      <footer className="border-t py-16 sm:py-24 bg-white border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
-            
-            {/* Branding Column */}
             <div className="lg:col-span-2 space-y-6">
-              <img src="/skino_logo.png" alt="SKINO Logo" className="h-20 w-auto object-contain" />
-              <p className={`text-xs sm:text-sm max-w-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-light-muted'}`}>
-                Superkino Equipments Pvt. Ltd. (SKINO) converts complex design criteria into high-stress, precision aluminium components serving global power, EV, defence, and aerospace OEMs since 1965.
+              <img src="/skino_logo.png" alt="SKINO Logo" className="h-16 w-auto object-contain" />
+              <p className="text-xs sm:text-sm max-w-sm leading-relaxed text-[#4B5563] font-light">
+                Superkino Equipments Pvt. Ltd. (SKINO) converts complex design criteria into high-stress, precision aluminium components serving global power distribution and electric vehicle grids since 1965.
               </p>
-              
-              {/* Copy */}
-              <span className="text-xs font-mono block text-brand-orange">© {new Date().getFullYear()} www.skino.in. All Rights Reserved.</span>
+              <span className="text-xs font-mono block text-[#FF6B00]">&copy; {new Date().getFullYear()} www.skino.in. All Rights Reserved.</span>
             </div>
 
-            {/* Sitemap Column */}
             <div className="space-y-4">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-brand-orange font-bold">Site Directory</h4>
-              <ul className="space-y-2 text-xs font-medium">
-                <li><a href="#about" className="hover:text-brand-orange transition-colors">About Us</a></li>
-                <li><a href="#capabilities" className="hover:text-brand-orange transition-colors">Engineering Range</a></li>
-                <li><a href="#industries" className="hover:text-brand-orange transition-colors">Global Sectors</a></li>
-                <li><a href="#quality" className="hover:text-brand-orange transition-colors">Quality Lab</a></li>
-                <li><a href="#facilities" className="hover:text-brand-orange transition-colors">Plant Capacity</a></li>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF6B00] font-bold">Site Directory</h4>
+              <ul className="space-y-2 text-xs font-bold list-none p-0 m-0">
+                <li><a href="#about" className="hover:text-[#FF6B00] text-[#4B5563] no-underline transition-colors">About Us</a></li>
+                <li><a href="#capabilities" className="hover:text-[#FF6B00] text-[#4B5563] no-underline transition-colors">Engineering Range</a></li>
+                <li><a href="#industries" className="hover:text-[#FF6B00] text-[#4B5563] no-underline transition-colors">Global Sectors</a></li>
+                <li><a href="#quality" className="hover:text-[#FF6B00] text-[#4B5563] no-underline transition-colors">Quality Lab</a></li>
+                <li><a href="#facilities" className="hover:text-[#FF6B00] text-[#4B5563] no-underline transition-colors">Plant Capacity</a></li>
               </ul>
             </div>
 
-            {/* Engineering Materials */}
             <div className="space-y-4">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-brand-orange font-bold">Casting Alloys</h4>
-              <ul className="space-y-2 text-xs font-mono text-gray-400">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF6B00] font-bold">Casting Alloys</h4>
+              <ul className="space-y-2 text-xs font-mono text-[#4B5563] list-none p-0 m-0 font-light">
                 <li>A356.2 (AlSi7Mg0.3)</li>
                 <li>ADC12 (AlSi9Cu3)</li>
-                <li>LM6 (AlSi12)</li>
-                <li>LM25 (BS1490)</li>
-                <li>High Strength Custom</li>
+                <li>LM6 (AlSi12 Variant Matrix)</li>
+                <li>LM25 (BS1490 Framework)</li>
               </ul>
             </div>
 
-            {/* Address / Contact */}
             <div className="space-y-4 text-xs">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-brand-orange font-bold">Headquarters</h4>
-              <p className="leading-relaxed">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF6B00] font-bold">Headquarters</h4>
+              <p className="leading-relaxed text-[#4B5563] font-light">
                 Superkino Equipments Pvt. Ltd.<br />
-                Industrial Area Phase-2,<br />
-                Global Manufacturing Hub,<br />
+                Industrial Area Phase-2, IMT Manesar,<br />
+                Gurugram Sourcing Region, Haryana,<br />
                 India
               </p>
-              <div className="pt-2 border-t border-gray-500/10 space-y-1 font-mono">
+              <div className="pt-2 border-t border-gray-100 space-y-1 font-mono text-gray-400">
                 <span className="block">Email: engineering@skino.in</span>
                 <span className="block">Phone: +91 98765 43210</span>
               </div>
             </div>
-
           </div>
 
-          {/* Plant location index map overlay banner */}
-          <div className="mt-16 pt-8 border-t border-gray-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
-            <div className="flex items-center space-x-2 text-gray-400">
-              <Globe size={14} className="text-brand-orange" />
-              <span>Plant Telemetry: Active | Online</span>
+          <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-400">
+            <div className="flex items-center space-x-2">
+              <Globe size={14} className="text-[#FF6B00]" />
+              <span>Plant Telemetry: Connected Network | Active Operations</span>
             </div>
             <div className="flex space-x-6">
-              <a href="#rfq" className="text-brand-orange hover:underline font-bold">EXPORT CONTRACT PORTAL</a>
-              <span className="text-gray-500">|</span>
-              <span className="text-gray-500">ISO 9001:2015 REGISTERED</span>
+              <a href="#rfq" className="text-[#FF6B00] hover:underline font-bold no-underline">EXPORT CONTRACT PORTAL</a>
+              <span>|</span>
+              <span>ISO 9001:2015 MANAGEMENT CODES</span>
             </div>
           </div>
 
