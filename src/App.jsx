@@ -282,7 +282,7 @@ function App() {
 
          
 
-          {/* ================================================================= */}
+          /* {/* ================================================================= */}
 {/* PREMIUM B2B CTA BUTTON (FIXED VISIBILITY OVERRIDE)               */}
 {/* ================================================================= */}
 <div className="hidden lg:flex items-center flex-shrink-0 ml-4">
@@ -298,7 +298,69 @@ function App() {
   >
     Request Quote
   </button>
-</div>
+</div> */
+
+          {/* ================================================================= */}
+{/* ENTERPRISE SOLID LIGHT THEME NAVBAR (FIXED OVERLAPPING BUG)     */}
+{/* ================================================================= */}
+<nav 
+  className={`fixed top-0 left-0 right-0 w-full transition-all duration-300 border-b select-none ${
+    isScrolled 
+      ? 'bg-white shadow-md border-gray-200 h-22' 
+      : 'bg-[#F5F1EB] border-gray-200/40 h-26'
+  }`}
+  style={{
+    zIndex: 9999, // Forcefully places the navbar on the absolute top layer strata
+    position: 'fixed',
+    isolation: 'isolate'
+  }}
+  suppressHydrationWarning
+>
+  {/* Inner Container Layout Framework */}
+  <div className="max-w-7xl mx-auto h-full px-6 lg:px-8 flex items-center justify-between gap-x-8 relative z-50">
+    
+    {/* Authoritative Logo Block */}
+    <div className="flex items-center flex-shrink-0 cursor-pointer group py-2 pr-8" onClick={() => setCurrentTab('home')}>
+      <div className="relative h-18 w-56 sm:w-64 flex items-center justify-start overflow-visible">
+        <img 
+          src="/logo.png" 
+          alt="SUPERKINO EQUIPMENTS" 
+          className="h-full w-auto object-contain object-left scale-125 origin-left transition-all duration-300 group-hover:scale-[1.28]" 
+        />
+      </div>
+    </div>
+
+    {/* Anti-Wrapping Links Navigation Row */}
+    <div className="hidden xl:flex items-center justify-center gap-x-6 xl:gap-x-8 2xl:gap-x-10 h-full ml-auto">
+      {['home', 'about', 'capabilities', 'industries', 'quality', 'facilities', 'rfq', 'contact'].map((tab) => (
+        <button
+          key={tab}
+          onClick={() => setCurrentTab(tab)}
+          className={`text-[11px] font-medium uppercase tracking-[0.16em] whitespace-nowrap transition-all duration-300 relative py-2 cursor-pointer bg-transparent border-none ${
+            currentTab === tab ? 'text-[#FF6B00]' : 'text-[#4B5563] hover:text-[#1A1A1D]'
+          }`}
+        >
+          {tab === 'rfq' ? 'RFQ Portal' : tab === 'quality' ? 'Quality & Trust' : tab === 'about' ? 'About Us' : tab}
+          {currentTab === tab && (
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#FF6B00]" />
+          )}
+        </button>
+      ))}
+    </div>
+
+    {/* Refined B2B Request Quote Action CTA */}
+    <div className="hidden lg:flex items-center flex-shrink-0 ml-4">
+      <button 
+        onClick={() => setCurrentTab('rfq')} 
+        className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white text-[11px] font-bold tracking-[0.15em] uppercase px-6 py-3.5 transition-colors cursor-pointer rounded-none border-none block"
+        style={{ backgroundColor: '#1A1A1D', color: '#FFFFFF' }}
+      >
+        Request Quote
+      </button>
+    </div>
+
+  </div>
+</nav>
 
           {/* Mobile Menu Controls */}
           <div className="flex sm:hidden items-center space-x-3">
