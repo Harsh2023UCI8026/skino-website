@@ -258,17 +258,40 @@ function App() {
     <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-brand-charcoal text-brand-offwhite' : 'bg-brand-light-bg text-brand-light-text'}`}>
       
       {/* 1. Header / Navigation */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isDark ? 'glass-header' : 'glass-header-light'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+      {/* <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isDark ? 'glass-header' : 'glass-header-light'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between"> */}
+      {/* 1. Header / Navigation - Fixed Overlapping Strata */}
+<header 
+  className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
+    isScrolled 
+      ? 'bg-white shadow-md border-gray-200/80' 
+      : 'bg-[#F5F1EB]'
+  }`}
+  style={{
+    zIndex: 9999,               // Forcefully brings the navbar to the absolute top layer
+    position: 'fixed',
+    isolation: 'isolate'
+  }}
+>
           
           {/* Logo Section */}
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <img 
               src="/skino_logo.png" 
               alt="SKINO Logo" 
               className="h-22 sm:h-32 w-auto object-contain" 
             />
-          </div>
+          </div> */}
+          {/* Logo Section */}
+<div className="flex items-center flex-shrink-0 py-2 pr-6">
+  <div className="relative h-20 w-56 sm:w-64 flex items-center justify-start overflow-visible">
+    <img 
+      src="/skino_logo.png" 
+      alt="SKINO Logo" 
+      className="h-full w-auto object-contain object-left scale-125 origin-left transition-transform duration-300" 
+    />
+  </div>
+</div>
 
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center space-x-8">
