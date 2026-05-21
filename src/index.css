@@ -28,3 +28,74 @@ p, span, li, label, div, button {
 .nav-transition {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
+
+
+/* ========================================= */
+/* INDUSTRIES HOVER MOTION SYSTEM            */
+/* ========================================= */
+
+.industry-hover-card{
+  position: relative;
+
+  height: 580px;
+
+  overflow: hidden;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  background-position: top center;
+
+  border: 1px solid #E5E7EB;
+
+  background-color: #FFFDF9;
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+
+  cursor: pointer;
+}
+
+.industry-hover-card:hover{
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.08);
+
+  animation:
+    industryScroll 20s linear forwards;
+}
+
+.industry-overlay{
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  padding: 32px;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.62),
+      rgba(0,0,0,0.18),
+      transparent
+    );
+}
+
+@keyframes industryScroll{
+
+  0%{
+    background-position: top center;
+  }
+
+  100%{
+    background-position: bottom center;
+  }
+
+}
