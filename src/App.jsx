@@ -280,7 +280,7 @@ function App() {
             <a href="#rfq" className={`text-sm font-medium tracking-wide transition-colors hover:text-brand-orange ${isDark ? 'text-gray-300' : 'text-brand-light-text'}`}>RFQ Portal</a>
           </nav>
 
-          {/* CTAs and Toggle */}
+          /* {/* CTAs and Toggle */}
           <div className="hidden sm:flex items-center space-x-4">
             {/* Request Quote Button */}
             <a 
@@ -289,7 +289,25 @@ function App() {
             >
               Request Quote
             </a>
-          </div>
+          </div> */
+
+          {/* ================================================================= */}
+{/* PREMIUM B2B CTA BUTTON (FIXED VISIBILITY OVERRIDE)               */}
+{/* ================================================================= */}
+<div className="hidden lg:flex items-center flex-shrink-0 ml-4">
+  <button
+    onClick={() => setCurrentTab('rfq')}
+    className="bg-[#1A1A1D] hover:bg-[#FF6B00] text-white hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase px-7 py-3.5 transition-colors duration-300 shadow-sm cursor-pointer rounded-none border-none block"
+    style={{ 
+      backgroundColor: '#1A1A1D', 
+      color: '#FFFFFF',
+      opacity: 1,
+      visibility: 'visible'
+    }}
+  >
+    Request Quote
+  </button>
+</div>
 
           {/* Mobile Menu Controls */}
           <div className="flex sm:hidden items-center space-x-3">
